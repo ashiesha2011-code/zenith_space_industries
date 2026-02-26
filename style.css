@@ -1,250 +1,166 @@
-/* ===============================
-   GLOBAL RESET
-================================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Orbitron', sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  background: radial-gradient(circle at top, #0a0f2c, #000814 70%);
-  color: white;
-  overflow-x: hidden;
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(to bottom, #000000, #001f3f);
+    color: white;
 }
 
-/* ===============================
-   NAVBAR (LIQUID GLASS STYLE)
-================================= */
-nav {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 60px;
-  backdrop-filter: blur(18px);
-  background: rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(0,191,255,0.3);
-  z-index: 1000;
+/* HEADER */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 60px;
+    background: rgba(0,0,0,0.9);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.logo img {
-  height: 45px;
-  object-fit: contain;
-  transition: 0.3s ease;
+.logo-container {
+    display: flex;
+    align-items: center;
 }
 
-.logo img:hover {
-  filter: drop-shadow(0 0 8px #00bfff);
+.logo {
+    height: 85px;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 40px;
+.logo:hover {
+    transform: scale(1.1);
 }
 
-nav ul li a {
-  text-decoration: none;
-  color: white;
-  font-size: 14px;
-  letter-spacing: 1px;
-  transition: 0.3s;
-  position: relative;
+nav a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #00bfff;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-nav ul li a:hover {
-  color: #00bfff;
+nav a:hover {
+    color: white;
 }
 
-nav ul li a::after {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  left: 0;
-  bottom: -6px;
-  background: #00bfff;
-  transition: 0.3s;
-}
+/* HERO */
 
-nav ul li a:hover::after {
-  width: 100%;
-}
-
-/* ===============================
-   HERO SECTION
-================================= */
 .hero {
-  height: 100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
-    url("images/hero.jpg") center/cover no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  flex-direction: column;
-  padding: 0 20px;
+    background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa') no-repeat center center/cover;
+    padding: 180px 60px;
+    text-align: center;
 }
 
 .hero h2 {
-  font-size: 58px;
-  font-weight: 800;
-  letter-spacing: 4px;
-  margin-bottom: 20px;
-  text-shadow: 0 0 20px rgba(0,191,255,0.3);
+    font-size: 48px;
 }
 
 .hero p {
-  font-size: 18px;
-  opacity: 0.85;
-  max-width: 650px;
-  margin-bottom: 40px;
+    max-width: 900px;
+    margin: 20px auto;
+    line-height: 1.7;
 }
 
-/* ===============================
-   BUTTON
-================================= */
-.cta-btn {
-  padding: 15px 45px;
-  border-radius: 40px;
-  border: 1px solid #00bfff;
-  background: rgba(0,191,255,0.1);
-  color: #00bfff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-  backdrop-filter: blur(10px);
-  font-size: 14px;
-  letter-spacing: 1px;
+/* BUTTONS */
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 10px;
+    transition: 0.3s;
 }
 
-.cta-btn:hover {
-  background: #00bfff;
-  color: black;
-  box-shadow: 0 0 25px #00bfff;
+.btn-primary {
+    background: #00bfff;
+    color: black;
 }
 
-/* ===============================
-   GENERAL SECTION
-================================= */
-.section {
-  padding: 140px 10%;
-  text-align: center;
-  margin-top: 80px;
+.btn-primary:hover {
+    background: white;
 }
 
-.section h3 {
-  font-size: 38px;
-  margin-bottom: 40px;
-  color: #00bfff;
-  letter-spacing: 2px;
+.btn-outline {
+    border: 2px solid #00bfff;
+    color: #00bfff;
 }
 
-.section p {
-  max-width: 750px;
-  margin: auto;
-  opacity: 0.85;
-  line-height: 1.8;
+.btn-outline:hover {
+    background: #00bfff;
+    color: black;
 }
 
-/* ===============================
-   GLASS CARDS
-================================= */
-.cards {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 60px;
+/* SECTIONS */
+
+section {
+    padding: 90px 60px;
+    text-align: center;
 }
 
-.card {
-  width: 320px;
-  padding: 40px;
-  border-radius: 20px;
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(0,191,255,0.3);
-  transition: 0.4s ease;
+.dark-section {
+    background: #000814;
 }
 
-.card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 0 30px rgba(0,191,255,0.6);
+/* MISSION CARDS */
+
+.mission-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
-.card img {
-  width: 100%;
-  border-radius: 15px;
-  margin-bottom: 20px;
+.mission-card {
+    background: #001d3d;
+    padding: 30px;
+    width: 320px;
+    border-radius: 12px;
+    transition: 0.4s;
+    cursor: pointer;
 }
 
-.card h4 {
-  margin-bottom: 20px;
-  color: #00bfff;
-  font-size: 18px;
+.mission-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 0 25px #00bfff;
 }
 
-.card p {
-  font-size: 14px;
-  opacity: 0.8;
-  line-height: 1.6;
-}
-
-/* ===============================
-   IMAGE INSIDE SECTIONS
-================================= */
-.section img {
-  width: 100%;
-  max-width: 850px;
-  border-radius: 20px;
-  margin-top: 50px;
-  border: 1px solid rgba(0,191,255,0.3);
-}
-
-/* ===============================
-   FOOTER
-================================= */
-footer {
-  padding: 40px;
-  text-align: center;
-  opacity: 0.5;
-  font-size: 12px;
-  margin-top: 80px;
-  border-top: 1px solid rgba(0,191,255,0.2);
-}
-
-/* ===============================
-   RESPONSIVE DESIGN
-================================= */
-@media (max-width: 900px) {
-  nav {
-    padding: 15px 30px;
-  }
-
-  nav ul {
-    gap: 20px;
-  }
-
-  .hero h2 {
-    font-size: 38px;
-  }
-
-  .section {
-    padding: 100px 6%;
-  }
-
-  .card {
+.mission-card img {
     width: 100%;
-    max-width: 400px;
-  }
+    border-radius: 8px;
+}
+
+/* ENGINE SECTION */
+
+.engine-box {
+    max-width: 900px;
+    margin: auto;
+    text-align: left;
+    line-height: 1.8;
+}
+
+/* INVESTORS */
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    background: #001d3d;
+    padding: 25px;
+    border-radius: 10px;
+    width: 220px;
+}
+
+/* FOOTER */
+
+footer {
+    background: black;
+    padding: 25px;
+    text-align: center;
 }
