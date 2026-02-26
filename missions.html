@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>ZSI Missions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <title>ZSI Missions</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<nav>
-  <div class="logo">
-  <img src="images/logo.png" alt="ZSI Logo">
-</div>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="missions.html">Missions</a></li>
-    <li><a href="technology.html">Technology</a></li>
-    <li><a href="investors.html">Investors</a></li>
-  </ul>
-</nav>
-
-<section class="section">
-  <h3>Our Missions</h3>
-
-  <div class="cards">
-    <div class="card">
-      <h4>Kármán I</h4>
-      <p>Suborbital demonstration beyond 100km with safe return capability.</p>
+<header>
+    <div class="logo-container">
+        <a href="index.html"><img src="logo.png" class="logo"></a>
+        <h1>ZSI</h1>
     </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="technology.html">Technology</a>
+        <a href="investors.html">Investors</a>
+    </nav>
+</header>
 
-    <div class="card">
-      <h4>Reusable Series</h4>
-      <p>Compact reusable launch vehicle designed for rapid turnaround.</p>
-    </div>
+<section>
+    <h2>Mission Programs</h2>
 
-    <div class="card">
-      <h4>Deep Probe</h4>
-      <p>Advanced propulsion research program using ion-based systems.</p>
+    <div class="mission-grid">
+
+        <div class="mission-card" onclick="location.href='mission-suborbital.html'">
+            <img src="https://images.unsplash.com/photo-1581091012184-5c4c4b8b0a64">
+            <h3>Suborbital Test Vehicle</h3>
+            <p>Crossing the Kármán Line and validating flight systems.</p>
+        </div>
+
+        <div class="mission-card" onclick="location.href='mission-reusable.html'">
+            <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933">
+            <h3>Reusable Booster</h3>
+            <p>Controlled descent and vertical landing architecture.</p>
+        </div>
+
+        <div class="mission-card" onclick="location.href='mission-orbital.html'">
+            <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06">
+            <h3>Orbital-Class System</h3>
+            <p>Deploying payloads to Low Earth Orbit.</p>
+        </div>
+
     </div>
-  </div>
 </section>
 
-<footer>
-  © 2026 Zenith Space Industries
-</footer>
+<footer>© 2026 Zenith Space Industries</footer>
 
 </body>
 </html>
