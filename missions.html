@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ZSI Missions</title>
+    <title>Missions | ZSI</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-    <div class="logo-container">
-        <a href="index.html"><img src="images/logo.png" class="logo"></a>
-    </div>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="technology.html">Technology</a>
-        <a href="investors.html">Investors</a>
-    </nav>
-</header>
 
-<section>
-    <h2>Mission Programs</h2>
+<nav>
+    <img src="images/logo.png" class="logo">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="missions.html">Missions</a></li>
+        <li><a href="technology.html">Technology</a></li>
+        <li><a href="investors.html">Investors</a></li>
+    </ul>
+</nav>
 
-    <div class="mission-grid">
+<section class="section">
+    <h2>ZSI Mission Roadmap</h2>
+    <p>
+        Our mission architecture is structured into three progressive stages, 
+        each validating key technologies for the next phase.
+    </p>
 
-        <div class="mission-card" onclick="location.href='mission-suborbital.html'">
-            <img src="https://images.pexels.com/photos/586030/pexels-photo-586030.jpeg?auto=compress&cs=tinysrgb&w=800">
-            <h3>Suborbital Test Vehicle</h3>
-            <p>Crossing the Kármán Line and validating flight systems.</p>
-        </div>
+    <div class="cards">
 
-        <div class="mission-card" onclick="location.href='mission-reusable.html'">
-            <img src="https://images.pexels.com/photos/2159/flight-sky-earth-space.jpg?auto=compress&cs=tinysrgb&w=800">
+        <a href="mission-suborbital.html" class="card">
+            <img src="images/mission-suborbital.jpg">
+            <h3>Suborbital Flight</h3>
+            <p>Crossing 100 km altitude to validate propulsion and guidance.</p>
+        </a>
+
+        <a href="mission-reusable.html" class="card">
+            <img src="images/mission-reusable.jpg">
             <h3>Reusable Booster</h3>
-            <p>Controlled descent and vertical landing architecture.</p>
-        </div>
+            <p>Autonomous descent and powered landing system.</p>
+        </a>
 
-        <div class="mission-card" onclick="location.href='mission-orbital.html'">
-            <img src="https://images.pexels.com/photos/41006/rocket-launch-rocket-take-off-nasa-41006.jpeg?auto=compress&cs=tinysrgb&w=800">
-            <h3>Orbital-Class System</h3>
-            <p>Deploying payloads to Low Earth Orbit.</p>
-        </div>
+        <a href="mission-orbital.html" class="card">
+            <img src="images/mission-orbital.jpg">
+            <h3>Orbital Launch Vehicle</h3>
+            <p>Satellite deployment to LEO and commercial payload delivery.</p>
+        </a>
 
     </div>
 </section>
 
-<footer>© 2026 Zenith Space Industries</footer>
+<footer>
+    © 2026 Zenith Space Industries
+</footer>
 
 </body>
 </html>
