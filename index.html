@@ -1,73 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Zenith Space Industries</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenith Space Industries</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<div id="stars"></div>
 
 <nav>
     <a href="index.html">
-    <img src="images/logo.png" class="logo">
-</a>
+        <img src="images/logo.png" class="logo">
+    </a>
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="missions.html">Missions</a></li>
         <li><a href="technology.html">Technology</a></li>
-        <li><a href="investors.html">Investors</a></li>
+        <li><a href="#investors">Investors</a></li>
     </ul>
 </nav>
 
 <section class="hero">
-    <div>
-        <h1>Engineering the Future Beyond the Kármán Line</h1>
-        <p>
-            Zenith Space Industries (ZSI) is a next-generation private aerospace enterprise 
-            dedicated to building reliable, reusable, and efficient launch systems. 
-            Our mission is to democratize access to space through precision engineering, 
-            innovative propulsion systems, and vertically integrated manufacturing.
-        </p>
+    <h1>ZENITH SPACE INDUSTRIES</h1>
+    <p>Private Aerospace Innovation Beyond the Kármán Line</p>
+    <a href="missions.html" class="btn">Explore Missions</a>
+</section>
+
+<section id="investors" class="investor-section">
+    <h2>Investor Relations</h2>
+    <p>ZSI develops efficient reusable launch systems focused on rapid turnaround and cost optimization.</p>
+
+    <div class="pitch-cards">
+        <div class="pitch">
+            <h3>Market Opportunity</h3>
+            <p>$1 Trillion projected global space economy by 2040.</p>
+        </div>
+
+        <div class="pitch">
+            <h3>Technology Edge</h3>
+            <p>Reusable launch vehicles engineered for reliability and reduced mission costs.</p>
+        </div>
+
+        <div class="pitch">
+            <h3>Revenue Streams</h3>
+            <p>Satellite deployment, research payloads, and commercial suborbital missions.</p>
+        </div>
     </div>
 </section>
-
-<section class="section">
-    <h2>About ZSI</h2>
-    <p>
-        Founded with a bold vision, ZSI aims to redefine private spaceflight by focusing 
-        on rapid iteration, high reliability, and mission efficiency. 
-        Our roadmap includes suborbital validation flights, reusable booster development, 
-        and a scalable orbital-class launch vehicle.
-    </p>
-</section>
-
-<section class="section">
-    <h2>Core Programs</h2>
-    <div class="cards">
-
-        <a href="mission-suborbital.html" class="card">
-            <img src="images/suborbital.jpg">
-            <h3>Suborbital Demonstrator</h3>
-            <p>Validation mission above the Kármán Line with controlled recovery.</p>
-        </a>
-
-        <a href="mission-reusable.html" class="card">
-            <img src="images/mission-reusable.jpg">
-            <h3>Reusable Booster</h3>
-            <p>Vertical landing technology for rapid turnaround operations.</p>
-        </a>
-
-        <a href="mission-orbital.html" class="card">
-            <img src="images/mission-orbital.jpg">
-            <h3>Orbital Launch System</h3>
-            <p>Next-generation payload deployment to Low Earth Orbit.</p>
-        </a>
-
-    </div>
-</section>
-
-<footer>
-    © 2026 Zenith Space Industries | All Rights Reserved
-</footer>
 
 </body>
 </html>
