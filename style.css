@@ -1,166 +1,132 @@
-body {
+/* GOOGLE FONT */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+
+* {
     margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(to bottom, #000000, #001f3f);
-    color: white;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* HEADER */
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #0b0f1a;
+    color: white;
+    line-height: 1.6;
+}
 
-header {
+/* NAVBAR */
+
+nav {
+    background: #050816;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 60px;
-    background: rgba(0,0,0,0.9);
+    padding: 15px 8%;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-}
-
 .logo {
-    height: 85px;
-    margin-right: 15px;
-    transition: transform 0.3s ease;
+    height: 60px;   /* Larger logo */
 }
 
-.logo:hover {
-    transform: scale(1.1);
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
 }
 
-nav a {
-    margin-left: 30px;
+nav ul li a {
+    color: white;
     text-decoration: none;
-    color: #00bfff;
     font-weight: 600;
     transition: 0.3s;
 }
 
-nav a:hover {
-    color: white;
+nav ul li a:hover {
+    color: #00c3ff;
 }
 
-/* HERO */
+/* HERO SECTION */
 
 .hero {
-    background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa') no-repeat center center/cover;
-    padding: 180px 60px;
+    height: 95vh;  /* More lengthy */
+    background:
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+        url("images/hero.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 0 10%;
 }
 
-.hero h2 {
-    font-size: 48px;
+.hero h1 {
+    font-size: 55px;
+    margin-bottom: 20px;
 }
 
 .hero p {
-    max-width: 900px;
-    margin: 20px auto;
-    line-height: 1.7;
+    font-size: 18px;
+    max-width: 800px;
+    margin: auto;
 }
 
-/* BUTTONS */
+/* SECTION */
 
-.btn {
-    padding: 12px 28px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    margin: 10px;
-    transition: 0.3s;
-}
-
-.btn-primary {
-    background: #00bfff;
-    color: black;
-}
-
-.btn-primary:hover {
-    background: white;
-}
-
-.btn-outline {
-    border: 2px solid #00bfff;
-    color: #00bfff;
-}
-
-.btn-outline:hover {
-    background: #00bfff;
-    color: black;
-}
-
-/* SECTIONS */
-
-section {
-    padding: 90px 60px;
+.section {
+    padding: 80px 10%;
     text-align: center;
 }
 
-.dark-section {
-    background: #000814;
+.section h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
 }
 
-/* MISSION CARDS */
+/* CARDS */
 
-.mission-grid {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
-.mission-card {
-    background: #001d3d;
-    padding: 30px;
-    width: 320px;
-    border-radius: 12px;
-    transition: 0.4s;
-    cursor: pointer;
-}
-
-.mission-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 0 25px #00bfff;
-}
-
-.mission-card img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-/* ENGINE SECTION */
-
-.engine-box {
-    max-width: 900px;
-    margin: auto;
-    text-align: left;
-    line-height: 1.8;
-}
-
-/* INVESTORS */
-
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    flex-wrap: wrap;
-}
-
-.stat-box {
-    background: #001d3d;
+.card {
+    background: #11182a;
     padding: 25px;
     border-radius: 10px;
-    width: 220px;
+    transition: 0.3s;
+    text-decoration: none;
+    color: white;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: #18223b;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* MISSION PAGE IMAGES */
+
+.mission-img {
+    width: 100%;
+    margin: 30px 0;
+    border-radius: 10px;
 }
 
 /* FOOTER */
 
 footer {
-    background: black;
-    padding: 25px;
+    background: #050816;
     text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+    font-size: 14px;
 }
