@@ -28,7 +28,8 @@ nav {
 }
 
 .logo {
-    height: 60px;   /* Larger logo */
+    height: 85px;
+    transition: 0.3s;
 }
 
 nav ul {
