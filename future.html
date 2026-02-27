@@ -35,53 +35,65 @@ nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 60px;
-background:#030b1d;
+padding:25px 80px;
+background:#020a1a;
 position:fixed;
 width:100%;
 top:0;
 z-index:1000;
+box-shadow:0 0 20px rgba(0,255,255,0.1);
+}
+
+nav a.logo-link{
+display:flex;
+align-items:center;
 }
 
 nav img{
-height:50px;
+height:70px;
+transition:0.3s;
+}
+
+nav img:hover{
+transform:scale(1.05);
 }
 
 nav ul{
 list-style:none;
 display:flex;
-gap:40px;
+gap:50px;
 }
 
 nav ul li a{
 text-decoration:none;
 color:white;
-font-size:14px;
+font-size:16px;
+letter-spacing:1px;
 transition:0.3s;
 }
 
 nav ul li a:hover{
 color:cyan;
-text-shadow:0 0 12px cyan;
+text-shadow:0 0 15px cyan;
 }
 
 /* HERO */
 .hero{
-margin-top:120px;
+margin-top:160px;
 text-align:center;
-padding:100px 20px;
+padding:120px 20px;
 position:relative;
 }
 
 .hero h1{
-font-size:52px;
+font-size:56px;
 letter-spacing:3px;
 color:cyan;
 }
 
 .hero p{
-opacity:0.8;
-font-size:15px;
+opacity:0.85;
+font-size:16px;
 }
 
 .hero::before{
@@ -91,24 +103,25 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:radial-gradient(circle at center, rgba(0,255,255,0.15), transparent 60%);
+background:radial-gradient(circle at center, rgba(0,255,255,0.18), transparent 60%);
 z-index:-1;
 animation:glow 6s infinite alternate ease-in-out;
 }
 
 @keyframes glow{
 from{transform:scale(1);}
-to{transform:scale(1.1);}
+to{transform:scale(1.08);}
 }
 
 /* TIMELINE */
 .timeline{
 position:relative;
 max-width:1100px;
-margin:100px auto;
+margin:120px auto;
 padding:0 20px;
 }
 
+/* Background Line */
 .timeline::before{
 content:'';
 position:absolute;
@@ -116,16 +129,27 @@ left:50%;
 top:0;
 width:4px;
 height:100%;
+background:rgba(0,255,255,0.15);
+transform:translateX(-50%);
+}
+
+/* Animated Active Line */
+#timelineProgress{
+position:absolute;
+left:50%;
+top:0;
+width:4px;
+height:0%;
 background:cyan;
 transform:translateX(-50%);
-opacity:0.3;
+box-shadow:0 0 20px cyan;
 }
 
 /* Timeline Items */
 .timeline-item{
 position:relative;
 width:50%;
-padding:60px;
+padding:70px;
 box-sizing:border-box;
 opacity:0;
 transform:translateY(60px);
@@ -146,16 +170,16 @@ text-align:right;
 left:50%;
 }
 
-/* Glowing Timeline Dot */
+/* Glowing Dots */
 .timeline-item::after{
 content:'';
 position:absolute;
-top:70px;
+top:90px;
 width:18px;
 height:18px;
 background:cyan;
 border-radius:50%;
-box-shadow:0 0 10px cyan, 0 0 20px cyan, 0 0 30px cyan;
+box-shadow:0 0 15px cyan,0 0 35px cyan;
 animation:pulse 2s infinite;
 }
 
@@ -168,15 +192,15 @@ left:-9px;
 }
 
 @keyframes pulse{
-0%{box-shadow:0 0 10px cyan, 0 0 20px cyan;}
-50%{box-shadow:0 0 20px cyan, 0 0 40px cyan;}
-100%{box-shadow:0 0 10px cyan, 0 0 20px cyan;}
+0%{box-shadow:0 0 15px cyan;}
+50%{box-shadow:0 0 45px cyan;}
+100%{box-shadow:0 0 15px cyan;}
 }
 
 /* Cards */
 .card{
 background:rgba(255,255,255,0.05);
-padding:30px;
+padding:35px;
 border-radius:20px;
 border:1px solid rgba(0,255,255,0.3);
 box-shadow:0 0 20px rgba(0,255,255,0.1);
@@ -184,8 +208,8 @@ transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-6px);
-box-shadow:0 0 30px cyan;
+transform:translateY(-8px);
+box-shadow:0 0 40px cyan;
 }
 
 .card img{
@@ -196,20 +220,21 @@ margin-bottom:20px;
 
 .card h2{
 color:cyan;
-font-size:22px;
-margin-bottom:10px;
+font-size:24px;
+margin-bottom:15px;
 }
 
 .card p{
-font-size:14px;
-line-height:1.7;
-opacity:0.9;
+font-size:15px;
+line-height:1.8;
+opacity:0.95;
 }
 
 footer{
 text-align:center;
-padding:60px 20px;
+padding:80px 20px;
 opacity:0.6;
+font-size:14px;
 }
 
 </style>
@@ -220,10 +245,13 @@ opacity:0.6;
 <div id="progressBar"></div>
 
 <nav>
-<img src="images/logo.png">
+<a href="index.html" class="logo-link">
+<img src="images/logo.png" alt="ZSI Logo">
+</a>
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="missions.html">Missions</a></li>
+<li><a href="future.html">Future</a></li>
 <li><a href="technology.html">Technology</a></li>
 <li><a href="investors.html">Investors</a></li>
 </ul>
@@ -231,16 +259,22 @@ opacity:0.6;
 
 <section class="hero">
 <h1>ZSI FUTURE ROADMAP</h1>
-<p>Strategic Expansion of Human Civilization Beyond Earth</p>
+<p>Strategic Expansion Beyond Earth Orbit and Toward Interstellar Horizons</p>
 </section>
 
-<section class="timeline">
+<section class="timeline" id="timeline">
+
+<div id="timelineProgress"></div>
 
 <div class="timeline-item left">
 <div class="card">
 <h2>2028 — Habitat One</h2>
 <img src="images/habitat.jpg">
-<p>Next-generation modular orbital station supporting AI laboratories, manufacturing and long-duration habitation.</p>
+<p>
+Habitat One will replace the ISS as a modular orbital platform supporting advanced AI laboratories,
+zero-gravity manufacturing, deep-space docking systems, and long-duration habitation. It establishes
+a permanent commercial and scientific presence in low Earth orbit.
+</p>
 </div>
 </div>
 
@@ -248,7 +282,10 @@ opacity:0.6;
 <div class="card">
 <h2>2032 — Selene Prime</h2>
 <img src="images/moonbase.jpg">
-<p>Permanent lunar settlement near the south pole enabling research and deep-space staging missions.</p>
+<p>
+Selene Prime is a permanent lunar base positioned near the Moon’s south pole, enabling resource
+extraction, radiation-shielded habitation, and serving as a staging ground for deep-space missions.
+</p>
 </div>
 </div>
 
@@ -256,7 +293,10 @@ opacity:0.6;
 <div class="card">
 <h2>2038 — Ares Dominion</h2>
 <img src="images/marsbase.jpg">
-<p>Self-sustaining Martian colony focused on planetary research and closed-loop life support systems.</p>
+<p>
+Ares Dominion is a self-sustaining Martian colony powered by hybrid nuclear and solar systems,
+focused on long-term habitation, planetary research, and terraforming technologies.
+</p>
 </div>
 </div>
 
@@ -264,7 +304,10 @@ opacity:0.6;
 <div class="card">
 <h2>2045 — AstraRing</h2>
 <img src="images/astraring.jpg">
-<p>100 km artificial gravity megastructure transforming orbit into a permanent human habitat.</p>
+<p>
+AstraRing is a conceptual 100-kilometer rotating megastructure designed to create artificial gravity
+through centrifugal force, integrating ecosystems, urban settlements, and large-scale space habitation.
+</p>
 </div>
 </div>
 
@@ -272,7 +315,12 @@ opacity:0.6;
 <div class="card">
 <h2>2055 — Project Eventide</h2>
 <img src="images/eventide.jpg">
-<p>Advanced propulsion research initiative exploring theoretical interstellar capability.</p>
+<p>
+Project Eventide explores theoretical antimatter propulsion systems aimed at enabling interstellar
+missions toward Proxima Centauri and, conceptually, the nearest known black hole to Earth.
+While currently theoretical, this initiative represents ZSI’s long-term ambition to transcend
+solar-system boundaries.
+</p>
 </div>
 </div>
 
@@ -285,8 +333,11 @@ opacity:0.6;
 <script>
 
 const items=document.querySelectorAll('.timeline-item');
+const timeline=document.getElementById('timeline');
+const timelineProgress=document.getElementById('timelineProgress');
 
 window.addEventListener('scroll',()=>{
+
 const trigger=window.innerHeight*0.85;
 
 items.forEach(item=>{
@@ -296,10 +347,22 @@ item.classList.add('show');
 }
 });
 
+/* Scroll Progress Bar */
 let winScroll=document.body.scrollTop||document.documentElement.scrollTop;
 let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
 let scrolled=(winScroll/height)*100;
 document.getElementById("progressBar").style.width=scrolled+"%";
+
+/* Timeline Line Growth */
+let timelineTop=timeline.offsetTop;
+let timelineHeight=timeline.offsetHeight;
+let scrollPosition=window.scrollY + window.innerHeight;
+
+if(scrollPosition > timelineTop){
+let progress=Math.min((scrollPosition - timelineTop) / timelineHeight * 100, 100);
+timelineProgress.style.height=progress+"%";
+}
+
 });
 
 </script>
