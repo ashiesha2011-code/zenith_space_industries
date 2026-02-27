@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZSI | Future Expansion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="images/favicon2.png">
+
+<!-- Orbitron Font -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Orbitron',sans-serif;
+background:#040912;
+color:white;
+overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+position:fixed;
+width:100%;
+top:0;
+padding:20px 60px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+z-index:1000;
+}
+
+nav a{
+color:#66ccff;
+text-decoration:none;
+margin-left:25px;
+font-size:13px;
+transition:.3s;
+}
+nav a:hover{
+color:white;
+text-shadow:0 0 10px #66ccff;
+}
+
+/* INTRO */
+.intro{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:radial-gradient(circle at center,#0b1f4d 0%,#040912 70%);
+text-align:center;
+}
+.intro h1{
+font-size:52px;
+letter-spacing:4px;
+color:#66ccff;
+text-shadow:0 0 40px #66ccff;
+animation:fadeIn 2s ease forwards;
+}
+.intro p{
+opacity:.7;
+margin-top:20px;
+font-size:14px;
+animation:fadeIn 3s ease forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* TIMELINE */
+.timeline{
+position:relative;
+width:80%;
+margin:120px auto;
+padding-left:60px;
+}
+
+.timeline::before{
+content:"";
+position:absolute;
+left:20px;
+top:0;
+width:4px;
+height:100%;
+background:rgba(102,204,255,0.2);
+}
+
+.progress-line{
+position:absolute;
+left:20px;
+top:0;
+width:4px;
+height:0%;
+background:#66ccff;
+box-shadow:0 0 20px #66ccff;
+transition:height .2s ease-out;
+}
+
+.timeline-item{
+margin-bottom:140px;
+opacity:0;
+transform:translateY(40px);
+transition:1s ease;
+}
+
+.timeline-item.active{
+opacity:1;
+transform:translateY(0);
+}
+
+/* HOLOGRAM CARD */
+.hologram{
+background:rgba(0,255,255,0.05);
+border:1px solid rgba(102,204,255,0.3);
+padding:30px;
+border-radius:15px;
+transition:.5s;
+box-shadow:0 0 20px rgba(0,255,255,0.1);
+}
+
+.hologram:hover{
+box-shadow:0 0 50px rgba(0,255,255,0.6);
+transform:scale(1.02);
+}
+
+.timeline-item h2{
+color:#66ccff;
+margin-bottom:10px;
+}
+
+.timeline-item p{
+font-size:14px;
+opacity:.85;
+line-height:1.6;
+}
+
+.note{
+font-size:12px;
+color:#ffcc66;
+margin-top:10px;
+}
+
+/* 3D BUTTON */
+.view3d{
+display:inline-block;
+margin-top:15px;
+padding:10px 18px;
+border:1px solid #66ccff;
+color:#66ccff;
+text-decoration:none;
+font-size:12px;
+transition:.3s;
+}
+
+.view3d:hover{
+background:#66ccff;
+color:black;
+box-shadow:0 0 20px #66ccff;
+}
+
+/* Footer */
+footer{
+text-align:center;
+padding:60px;
+opacity:.4;
+font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div><strong>ZENITH SPACE INDUSTRIES</strong></div>
+<div>
+<a href="index.html">Home</a>
+<a href="missions.html">Missions</a>
+<a href="technology.html">Technology</a>
+<a href="future.html">Future</a>
+<a href="investors.html">Investors</a>
+</div>
+</nav>
+
+<section class="intro">
+<h1>THE EXPANSION PROGRAM</h1>
+<p>Orbital • Lunar • Martian • Artificial Gravity • Interstellar</p>
+</section>
+
+<section class="timeline">
+<div class="progress-line" id="progressLine"></div>
+
+<!-- Habitat One -->
+<div class="timeline-item">
+<div class="hologram">
+<h2>Habitat One – Orbital Station</h2>
+<p>
+Next-generation modular orbital research and manufacturing station serving
+as deep space assembly platform.
+</p>
+<a href="habitatone-3d.html" class="view3d">View in 3D</a>
+</div>
+</div>
+
+<!-- Lunar -->
+<div class="timeline-item">
+<div class="hologram">
+<h2>Selene Prime – Lunar Base</h2>
+<p>
+Robotic-assisted lunar industrial complex supporting fuel production
+and megastructure construction.
+</p>
+</div>
+</div>
+
+<!-- Mars -->
+<div class="timeline-item">
+<div class="hologram">
+<h2>Ares Dominion – Mars Base</h2>
+<p>
+Permanent Martian settlement initiative focusing on ISRU,
+terraforming research and planetary engineering.
+</p>
+<a href="aresdominion-3d.html" class="view3d">View in 3D</a>
+<div class="note">Long-horizon interplanetary civilization initiative.</div>
+</div>
+</div>
+
+<!-- AstraRing -->
+<div class="timeline-item">
+<div class="hologram">
+<h2>AstraRing – Artificial Gravity Megastructure</h2>
+<p>
+100 km radius centrifugal orbital ring generating near-Earth gravity
+for sustained civilization beyond Earth.
+</p>
+<a href="astraring-3d.html" class="view3d">View in 3D</a>
+<div class="note">Conceptual late-century megastructure research initiative.</div>
+</div>
+</div>
+
+<!-- Interstellar -->
+<div class="timeline-item">
+<div class="hologram">
+<h2>Project Eventide – Interstellar Program</h2>
+<p>
+Theoretical antimatter-propelled probe targeting Alpha Centauri,
+with future deep relativistic reconnaissance missions.
+</p>
+<div class="note">
+Antimatter propulsion remains experimentally unviable and fully conceptual.
+</div>
+</div>
+</div>
+
+</section>
+
+<footer>
+© 2026 Zenith Space Industries | Conceptual Long-Horizon Expansion Program
+</footer>
+
+<script>
+const items=document.querySelectorAll('.timeline-item');
+const progressLine=document.getElementById('progressLine');
+
+function animateTimeline(){
+const triggerBottom=window.innerHeight*0.85;
+items.forEach(item=>{
+const boxTop=item.getBoundingClientRect().top;
+if(boxTop<triggerBottom){
+item.classList.add('active');
+}
+});
+
+const timeline=document.querySelector('.timeline');
+const timelineHeight=timeline.offsetHeight;
+const scrollPosition=window.scrollY-timeline.offsetTop;
+const progress=Math.max(0,Math.min(scrollPosition/timelineHeight*100,100));
+progressLine.style.height=progress+"%";
+}
+
+window.addEventListener('scroll',animateTimeline);
+</script>
+
+</body>
+</html>
