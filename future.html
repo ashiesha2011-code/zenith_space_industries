@@ -35,15 +35,16 @@ nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:25px 80px;
+padding:25px 60px;
 background:#020a1a;
 position:fixed;
-width:100%;
 top:0;
+left:0;
+right:0;
 z-index:1000;
 box-shadow:0 0 20px rgba(0,255,255,0.1);
+box-sizing:border-box;
 }
-
 nav a.logo-link{
 display:flex;
 align-items:center;
@@ -330,40 +331,37 @@ solar-system boundaries.
 </footer>
 
 <script>
+const items = document.querySelectorAll('.timeline-item');
+const timeline = document.getElementById('timeline');
+const timelineProgress = document.getElementById('timelineProgress');
 
-const items=document.querySelectorAll('.timeline-item');
-const timeline=document.getElementById('timeline');
-const timelineProgress=document.getElementById('timelineProgress');
+window.addEventListener('scroll', () => {
 
-window.addEventListener('scroll',()=>{
+  const trigger = window.innerHeight * 0.85;
 
-const trigger=window.innerHeight*0.85;
+  items.forEach(item => {
+    const top = item.getBoundingClientRect().top;
+    if (top < trigger) {
+      item.classList.add('show');
+    }
+  });
 
-items.forEach(item=>{
-const top=item.getBoundingClientRect().top;
-if(top<trigger){
-item.classList.add('show');
-}
+  /* Top Scroll Progress Bar */
+  let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  let scrolled = (winScroll / height) * 100;
+  document.getElementById("progressBar").style.width = scrolled + "%";
+
+  /* CENTER-BASED Timeline Growth */
+  const timelineRect = timeline.getBoundingClientRect();
+  const windowCenter = window.innerHeight / 2;
+
+  if (timelineRect.top < windowCenter && timelineRect.bottom > 0) {
+    let progress = (windowCenter - timelineRect.top) / timelineRect.height;
+    progress = Math.max(0, Math.min(progress, 1));
+    timelineProgress.style.height = (progress * 100) + "%";
+  }
 });
-
-/* Scroll Progress Bar */
-let winScroll=document.body.scrollTop||document.documentElement.scrollTop;
-let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
-let scrolled=(winScroll/height)*100;
-document.getElementById("progressBar").style.width=scrolled+"%";
-
-/* Timeline Line Growth */
-let timelineTop=timeline.offsetTop;
-let timelineHeight=timeline.offsetHeight;
-let scrollPosition=window.scrollY + window.innerHeight;
-
-if(scrollPosition > timelineTop){
-let progress=Math.min((scrollPosition - timelineTop) / timelineHeight * 100, 100);
-timelineProgress.style.height=progress+"%";
-}
-
-});
-
 </script>
 
 </body>
