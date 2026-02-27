@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Investors | ZSI</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>ZSI Investors</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <nav>
-    <a href="index.html">
-    <img src="images/logo.png" class="logo">
+<a href="index.html">
+<img src="images/logo.png" class="logo">
 </a>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="missions.html">Missions</a></li>
-        <li><a href="technology.html">Technology</a></li>
-        <li><a href="investors.html">Investors</a></li>
-    </ul>
 </nav>
 
-<section class="section">
-    <h2>Investment Opportunities</h2>
+<section class="hero small-hero fade-in" style="background-image:url('images/investors.jpg')">
+<div class="overlay">
+<h1>INVESTOR RELATIONS</h1>
+</div>
+</section>
 
-    <img src="images/investors.jpg" class="mission-img">
+<section class="section fade-in">
+<h2>Strategic Growth Opportunity</h2>
+<p>
+ZSI is positioned at the forefront of private launch system innovation.
+</p>
+</section>
 
-    <p>
-        ZSI is actively seeking strategic partners to accelerate
-        reusable propulsion systems and orbital launch infrastructure.
-    </p>
+<section class="section fade-in">
+<h2>Investment Application</h2>
 
-    <p>
-        Our phased roadmap ensures capital efficiency while enabling
-        rapid technological advancement in the private space sector.
-    </p>
+<form action="https://formsubmit.co/ashiesha2011@gmail.com" method="POST" class="invest-form">
+
+<input type="hidden" name="_captcha" value="false">
+
+<input type="text" name="Full Name" placeholder="Full Name" required>
+<input type="email" name="Email" placeholder="Email Address" required>
+<input type="text" name="Company" placeholder="Company / Organization">
+<input type="number" name="Investment Amount" placeholder="Proposed Investment (USD)" required>
+
+<textarea name="Message" rows="4" placeholder="Message or Proposal"></textarea>
+
+<button type="submit">Submit Investment Inquiry</button>
+
+</form>
 </section>
 
 <footer>
-    © 2026 Zenith Space Industries
+<p>© 2026 Zenith Space Industries</p>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
