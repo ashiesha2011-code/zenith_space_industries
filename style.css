@@ -39,16 +39,19 @@ nav ul {
 }
 
 nav ul li a {
-    color: white;
     text-decoration: none;
-    font-weight: 600;
+    color: white;
+    font-size: 20px;
+    position: relative;
     transition: 0.3s;
 }
 
 nav ul li a:hover {
-    color: #00c3ff;
+    color: #00f2ff;
+    text-shadow: 0 0 10px #00f2ff,
+                 0 0 20px #00f2ff,
+                 0 0 40px #00f2ff;
 }
-
 /* HERO SECTION */
 
 .hero {
