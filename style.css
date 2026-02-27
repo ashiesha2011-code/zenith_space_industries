@@ -52,15 +52,14 @@ nav ul li a:hover {
 /* HERO SECTION */
 
 .hero {
-    height: 95vh;  /* More lengthy */
-    background:
-        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
-        url("images/hero.jpg") center/cover no-repeat;
+    height: 100vh;
+    background-size: contain;   /* was cover */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: black;
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 0 10%;
+    align-items: center;
 }
 
 .hero h1 {
