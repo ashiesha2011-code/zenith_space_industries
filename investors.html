@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investors | Zenith Space Industries</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="images/favicon2.png">
+
 <link rel="stylesheet" href="style.css">
 
 <!-- EmailJS -->
@@ -16,6 +15,95 @@
 emailjs.init("Tkxlby0oNi8WW--TQ");
 })();
 </script>
+
+<style>
+
+body {
+    background: #0a0f1c;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+}
+
+.navbar a {
+    position: relative;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    color: #00f2ff;
+    text-shadow: 0 0 8px #00f2ff;
+}
+
+/* Form Section */
+
+.investor-section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.investor-section h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: auto;
+    background: rgba(255,255,255,0.05);
+    padding: 40px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px #00f2ff;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #00f2ff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 15px #00f2ff;
+}
+
+/* Success Message */
+
+.success-message {
+    display: none;
+    margin-top: 20px;
+    padding: 12px;
+    background: rgba(0,255,150,0.1);
+    border: 1px solid #00ffcc;
+    border-radius: 6px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+</style>
 </head>
 
 <body>
