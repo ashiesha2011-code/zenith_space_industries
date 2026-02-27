@@ -19,88 +19,89 @@ emailjs.init("Tkxlby0oNi8WW--TQ");
 <style>
 
 body {
-    background: #0a0f1c;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
     margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0b0f1a;
+    color: #ffffff;
 }
 
+/* Navbar Glow */
 .navbar a {
-    position: relative;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .navbar a:hover {
-    color: #00f2ff;
-    text-shadow: 0 0 8px #00f2ff;
+    color: #00bcd4;
+    text-shadow: 0 0 6px #00bcd4;
 }
 
-/* Form Section */
-
+/* Section */
 .investor-section {
-    padding: 80px 20px;
+    padding: 100px 20px;
     text-align: center;
+    background: linear-gradient(to bottom, #0b0f1a, #111827);
 }
 
 .investor-section h1 {
-    font-size: 40px;
-    margin-bottom: 20px;
+    font-size: 42px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
+.investor-section p {
+    opacity: 0.7;
+    margin-bottom: 50px;
+}
+
+/* Form Container */
 .form-container {
-    max-width: 500px;
+    max-width: 600px;
     margin: auto;
-    background: rgba(255,255,255,0.05);
     padding: 40px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
 }
 
+/* Inputs */
 input, textarea {
     width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    border: none;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.1);
+    padding: 14px;
+    margin: 15px 0;
+    border-radius: 4px;
+    border: 1px solid #1f2937;
+    background: #111827;
     color: white;
+    font-size: 14px;
 }
 
 input:focus, textarea:focus {
     outline: none;
-    box-shadow: 0 0 10px #00f2ff;
+    border-color: #00bcd4;
+    box-shadow: 0 0 8px rgba(0,188,212,0.5);
 }
 
+/* Button */
 button {
     width: 100%;
-    padding: 12px;
-    background: #00f2ff;
+    padding: 14px;
+    background: #00bcd4;
     border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 4px;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
 }
 
 button:hover {
-    box-shadow: 0 0 15px #00f2ff;
+    background: #0097a7;
 }
 
 /* Success Message */
-
 .success-message {
     display: none;
     margin-top: 20px;
     padding: 12px;
-    background: rgba(0,255,150,0.1);
-    border: 1px solid #00ffcc;
-    border-radius: 6px;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    border: 1px solid #00bcd4;
+    background: rgba(0,188,212,0.08);
+    border-radius: 4px;
 }
 
 </style>
