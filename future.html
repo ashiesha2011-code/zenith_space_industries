@@ -3,162 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZSI Future Projects</title>
+<title>ZSI | Future Roadmap</title>
 
 <link rel="icon" href="images/favicon2.png">
-
-<!-- Orbitron Font -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin:0;
-    font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(to bottom, #000814, #001d3d);
-    color:white;
-    overflow-x:hidden;
+
+body{
+margin:0;
+font-family:'Orbitron', sans-serif;
+background:linear-gradient(to bottom,#020c1f,#001d3d);
+color:white;
+overflow-x:hidden;
 }
 
-header {
-    text-align:center;
-    padding:60px 20px;
+/* Scroll Progress Bar */
+#progressBar{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+background:cyan;
+width:0%;
+z-index:2000;
+box-shadow:0 0 15px cyan;
 }
 
-header img {
-    width:120px;
-    margin-bottom:20px;
+/* NAVBAR */
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:#030b1d;
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
 }
 
-header h1 {
-    font-size:42px;
-    color:cyan;
-    letter-spacing:3px;
+nav img{
+height:50px;
 }
 
-/* Timeline Section */
-.timeline {
-    position:relative;
-    max-width:1000px;
-    margin:80px auto;
-    padding:20px;
+nav ul{
+list-style:none;
+display:flex;
+gap:40px;
 }
 
-.timeline::after {
-    content:'';
-    position:absolute;
-    width:4px;
-    background:cyan;
-    top:0;
-    bottom:0;
-    left:50%;
-    margin-left:-2px;
-    transform:scaleY(0);
-    transform-origin:top;
-    transition:transform 1.5s ease;
+nav ul li a{
+text-decoration:none;
+color:white;
+font-size:14px;
+transition:0.3s;
 }
 
-.timeline.active::after {
-    transform:scaleY(1);
+nav ul li a:hover{
+color:cyan;
+text-shadow:0 0 12px cyan;
 }
 
-.timeline-item {
-    padding:20px 40px;
-    position:relative;
-    width:50%;
-    opacity:0;
-    transform:translateY(50px);
-    transition:all 0.8s ease;
+/* HERO */
+.hero{
+margin-top:120px;
+text-align:center;
+padding:100px 20px;
+position:relative;
 }
 
-.timeline-item.show {
-    opacity:1;
-    transform:translateY(0);
+.hero h1{
+font-size:52px;
+letter-spacing:3px;
+color:cyan;
 }
 
-.timeline-item.left {
-    left:0;
-    text-align:right;
+.hero p{
+opacity:0.8;
+font-size:15px;
 }
 
-.timeline-item.right {
-    left:50%;
+.hero::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(circle at center, rgba(0,255,255,0.15), transparent 60%);
+z-index:-1;
+animation:glow 6s infinite alternate ease-in-out;
 }
 
-.card {
-    background:rgba(255,255,255,0.05);
-    padding:20px;
-    border-radius:15px;
-    border:1px solid rgba(0,255,255,0.3);
-    box-shadow:0 0 15px rgba(0,255,255,0.2);
+@keyframes glow{
+from{transform:scale(1);}
+to{transform:scale(1.1);}
 }
 
-.card img {
-    width:100%;
-    border-radius:10px;
-    margin-bottom:15px;
+/* TIMELINE */
+.timeline{
+position:relative;
+max-width:1100px;
+margin:100px auto;
+padding:0 20px;
 }
 
-.card h2 {
-    color:cyan;
+.timeline::before{
+content:'';
+position:absolute;
+left:50%;
+top:0;
+width:4px;
+height:100%;
+background:cyan;
+transform:translateX(-50%);
+opacity:0.3;
 }
 
-footer {
-    text-align:center;
-    padding:40px;
-    opacity:0.6;
+/* Timeline Items */
+.timeline-item{
+position:relative;
+width:50%;
+padding:60px;
+box-sizing:border-box;
+opacity:0;
+transform:translateY(60px);
+transition:all 0.8s ease;
 }
+
+.timeline-item.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.timeline-item.left{
+left:0;
+text-align:right;
+}
+
+.timeline-item.right{
+left:50%;
+}
+
+/* Glowing Timeline Dot */
+.timeline-item::after{
+content:'';
+position:absolute;
+top:70px;
+width:18px;
+height:18px;
+background:cyan;
+border-radius:50%;
+box-shadow:0 0 10px cyan, 0 0 20px cyan, 0 0 30px cyan;
+animation:pulse 2s infinite;
+}
+
+.timeline-item.left::after{
+right:-9px;
+}
+
+.timeline-item.right::after{
+left:-9px;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 10px cyan, 0 0 20px cyan;}
+50%{box-shadow:0 0 20px cyan, 0 0 40px cyan;}
+100%{box-shadow:0 0 10px cyan, 0 0 20px cyan;}
+}
+
+/* Cards */
+.card{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+border:1px solid rgba(0,255,255,0.3);
+box-shadow:0 0 20px rgba(0,255,255,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 30px cyan;
+}
+
+.card img{
+width:100%;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+.card h2{
+color:cyan;
+font-size:22px;
+margin-bottom:10px;
+}
+
+.card p{
+font-size:14px;
+line-height:1.7;
+opacity:0.9;
+}
+
+footer{
+text-align:center;
+padding:60px 20px;
+opacity:0.6;
+}
+
 </style>
 </head>
 
 <body>
 
-<header>
-    <img src="images/logo.png" alt="ZSI Logo">
-    <h1>ZSI FUTURE TIMELINE</h1>
-    <p>Building Humanity’s Multi-Planetary Civilization</p>
-</header>
+<div id="progressBar"></div>
 
-<section class="timeline" id="timeline">
+<nav>
+<img src="images/logo.png">
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="missions.html">Missions</a></li>
+<li><a href="technology.html">Technology</a></li>
+<li><a href="investors.html">Investors</a></li>
+</ul>
+</nav>
 
-    <div class="timeline-item left">
-        <div class="card">
-            <h2>2028 – Habitat One</h2>
-            <img src="images/habitat.jpg">
-            <p>Successor of the ISS. Modular orbital station with AI labs, deep-space docking, and zero-gravity manufacturing.</p>
-        </div>
-    </div>
+<section class="hero">
+<h1>ZSI FUTURE ROADMAP</h1>
+<p>Strategic Expansion of Human Civilization Beyond Earth</p>
+</section>
 
-    <div class="timeline-item right">
-        <div class="card">
-            <h2>2032 – Moon Base</h2>
-            <img src="images/moonbase.jpg">
-            <p>Permanent lunar settlement for research, helium-3 mining, and deep-space mission launch platform.</p>
-        </div>
-    </div>
+<section class="timeline">
 
-    <div class="timeline-item left">
-        <div class="card">
-            <h2>2038 – Mars Base</h2>
-            <img src="images/marsbase.jpg">
-            <p>Self-sustaining Martian colony powered by advanced nuclear and solar systems.</p>
-        </div>
-    </div>
+<div class="timeline-item left">
+<div class="card">
+<h2>2028 — Habitat One</h2>
+<img src="images/habitat.jpg">
+<p>Next-generation modular orbital station supporting AI laboratories, manufacturing and long-duration habitation.</p>
+</div>
+</div>
 
-    <div class="timeline-item right">
-        <div class="card">
-            <h2>2045 – AstraRing</h2>
-            <img src="images/astraring.jpg">
-            <p>Rotating orbital megastructure featuring artificial gravity, land, water, and settlements.</p>
-        </div>
-    </div>
+<div class="timeline-item right">
+<div class="card">
+<h2>2032 — Selene Prime</h2>
+<img src="images/moonbase.jpg">
+<p>Permanent lunar settlement near the south pole enabling research and deep-space staging missions.</p>
+</div>
+</div>
 
-    <div class="timeline-item left">
-        <div class="card">
-            <h2>2055 – Project Eventide</h2>
-            <img src="images/eventide.jpg">
-            <p>Advanced propulsion and deep-space exploration initiative preparing humanity for interstellar travel.</p>
-        </div>
-    </div>
+<div class="timeline-item left">
+<div class="card">
+<h2>2038 — Ares Dominion</h2>
+<img src="images/marsbase.jpg">
+<p>Self-sustaining Martian colony focused on planetary research and closed-loop life support systems.</p>
+</div>
+</div>
+
+<div class="timeline-item right">
+<div class="card">
+<h2>2045 — AstraRing</h2>
+<img src="images/astraring.jpg">
+<p>100 km artificial gravity megastructure transforming orbit into a permanent human habitat.</p>
+</div>
+</div>
+
+<div class="timeline-item left">
+<div class="card">
+<h2>2055 — Project Eventide</h2>
+<img src="images/eventide.jpg">
+<p>Advanced propulsion research initiative exploring theoretical interstellar capability.</p>
+</div>
+</div>
 
 </section>
 
@@ -167,20 +283,25 @@ footer {
 </footer>
 
 <script>
-const timeline = document.getElementById('timeline');
-const items = document.querySelectorAll('.timeline-item');
 
-window.addEventListener('scroll', () => {
-    const trigger = window.innerHeight * 0.8;
+const items=document.querySelectorAll('.timeline-item');
 
-    items.forEach(item => {
-        const top = item.getBoundingClientRect().top;
-        if(top < trigger){
-            item.classList.add('show');
-            timeline.classList.add('active');
-        }
-    });
+window.addEventListener('scroll',()=>{
+const trigger=window.innerHeight*0.85;
+
+items.forEach(item=>{
+const top=item.getBoundingClientRect().top;
+if(top<trigger){
+item.classList.add('show');
+}
 });
+
+let winScroll=document.body.scrollTop||document.documentElement.scrollTop;
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+let scrolled=(winScroll/height)*100;
+document.getElementById("progressBar").style.width=scrolled+"%";
+});
+
 </script>
 
 </body>
