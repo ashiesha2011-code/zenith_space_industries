@@ -483,11 +483,10 @@ window.addEventListener('scroll', () => {
 
   items.forEach(item => {
 
-    const itemRect = item.getBoundingClientRect();
-    const itemTriggerPoint = window.innerHeight / 2;
+    const dotOffset = item.offsetTop + 90; // 90 = your dot vertical position
+    const lineHeightPixels = (maxTimelineProgress / 100) * timeline.offsetHeight;
 
-    // When the center of the screen crosses the CENTER of the card
-    if (itemRect.top + itemRect.height / 2 <= itemTriggerPoint) {
+    if (lineHeightPixels >= dotOffset) {
         item.classList.add('active');
         item.classList.add('show');
     }
