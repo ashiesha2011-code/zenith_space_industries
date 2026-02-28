@@ -483,15 +483,16 @@ window.addEventListener('scroll', () => {
 
   items.forEach(item => {
 
-      const itemRect = item.getBoundingClientRect();
-      const itemCenter = itemRect.top + itemRect.height / 2;
+    const itemRect = item.getBoundingClientRect();
+    const itemTriggerPoint = window.innerHeight / 2;
 
-      if (windowCenter >= itemCenter) {
-          item.classList.add('active');
-          item.classList.add('show');
-      }
+    // When the center of the screen crosses the CENTER of the card
+    if (itemRect.top + itemRect.height / 2 <= itemTriggerPoint) {
+        item.classList.add('active');
+        item.classList.add('show');
+    }
 
-  });
+});
 
   // ===== FINAL NOTICE =====
 
