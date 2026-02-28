@@ -242,7 +242,56 @@ padding:80px 20px;
 opacity:0.6;
 font-size:14px;
 }
+.timeline-end{
+    position:relative;
+    text-align:center;
+    margin:200px auto 120px auto;
+    opacity:0;
+    transform:translateY(40px);
+    transition:all 0.8s ease;
+}
 
+.timeline-end.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.end-dot{
+    width:18px;
+    height:18px;
+    background:rgba(0,255,255,0.3);
+    border-radius:50%;
+    margin:0 auto 40px auto;
+    box-shadow:0 0 8px rgba(0,255,255,0.4);
+    transition:all 0.5s ease;
+}
+
+.end-dot.active{
+    background:cyan;
+    box-shadow:0 0 20px cyan, 0 0 40px cyan;
+}
+
+.end-card{
+    max-width:850px;
+    margin:0 auto;
+    padding:45px;
+    background:rgba(255,255,255,0.05);
+    border-radius:25px;
+    border:1px solid rgba(0,255,255,0.3);
+    box-shadow:0 0 30px rgba(0,255,255,0.1);
+}
+
+.end-card h2{
+    color:cyan;
+    font-size:26px;
+    margin-bottom:20px;
+}
+
+.end-card p{
+    font-size:16px;
+    line-height:1.9;
+    opacity:0.95;
+}
 </style>
 </head>
 
@@ -368,23 +417,21 @@ While currently theoretical, this initiative represents ZSI’s long-term ambiti
 solar-system boundaries.
 </p>
 </div>
-<div class="timeline-item left">
-  <div class="timeline-item left no-dot">
-  <div class="card" style="text-align:center; max-width:800px; margin:0 auto;">
-    <h2 style="color:cyan;">Visionary Notice</h2>
-    <p style="font-size:16px; line-height:1.8;">
-      The advanced megastructure and interstellar initiatives outlined above —
-      including AstraRing and Project Eventide — represent long-term conceptual
-      research programs. These missions are grounded in theoretical physics,
-      propulsion studies, and speculative engineering models. Their realization
-      depends on future technological breakthroughs, international collaboration,
-      and sustained scientific advancement.
-    </p>
-  </div>
-</div>
-</div>
 </section>
+<div class="timeline-end" id="timelineEnd">
+    <div class="end-dot" id="endDot"></div>
 
+    <div class="end-card" id="endCard">
+        <h2>Visionary Notice</h2>
+        <p>
+            The advanced megastructure and interstellar initiatives outlined above —
+            including AstraRing and Project Eventide — represent long-term conceptual
+            research programs. These missions are grounded in theoretical physics
+            and speculative propulsion studies. Their realization depends on future
+            scientific breakthroughs, global collaboration, and sustained innovation.
+        </p>
+    </div>
+</div>
 <footer>
 © 2026 Zenith Space Industries | Engineering Beyond Earth
 </footer>
@@ -416,6 +463,13 @@ window.addEventListener('scroll', () => {
   timelineProgress.style.height = maxTimelineProgress + "%";
 
   items.forEach(item => {
+      const endSection = document.getElementById("timelineEnd");
+const endDot = document.getElementById("endDot");
+
+if (maxTimelineProgress >= 99) {
+    endSection.classList.add("show");
+    endDot.classList.add("active");
+}
       const dotPosition = item.offsetTop + 90;
       const lineHeightPixels = (maxTimelineProgress / 100) * timeline.offsetHeight;
 
