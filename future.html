@@ -437,66 +437,68 @@ solar-system boundaries.
 </footer>
 
 <script>
-
 const items = document.querySelectorAll('.timeline-item');
 const timeline = document.getElementById('timeline');
 const timelineProgress = document.getElementById('timelineProgress');
 const progressBar = document.getElementById("progressBar");
+const endSection = document.getElementById("timelineEnd");
+const endDot = document.getElementById("endDot");
 
 let maxTimelineProgress = 0;
 
 window.addEventListener('scroll', () => {
 
+  // Top scroll progress bar (leave this unchanged)
   let winScroll = document.documentElement.scrollTop || document.body.scrollTop;
   let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   let scrolled = (winScroll / height) * 100;
   progressBar.style.width = scrolled + "%";
 
+  // ===== CENTER BASED TIMELINE =====
+
   const timelineRect = timeline.getBoundingClientRect();
-const windowCenter = window.innerHeight / 2;
+  const windowCenter = window.innerHeight / 2;
 
-// Calculate how far the center of the screen has moved through the timeline
-let progress;
+  let progress;
 
-if (timelineRect.top > windowCenter) {
-    progress = 0;
-} 
-else if (timelineRect.bottom < windowCenter) {
-    progress = 100;
-} 
-else {
-    const totalHeight = timeline.offsetHeight;
-    const distanceScrolled = windowCenter - timelineRect.top;
-    progress = (distanceScrolled / totalHeight) * 100;
-}
+  if (timelineRect.top > windowCenter) {
+      progress = 0;
+  } 
+  else if (timelineRect.bottom < windowCenter) {
+      progress = 100;
+  } 
+  else {
+      const totalHeight = timeline.offsetHeight;
+      const distance = windowCenter - timelineRect.top;
+      progress = (distance / totalHeight) * 100;
+  }
 
-if (progress > maxTimelineProgress) {
-    maxTimelineProgress = progress;
-}
-
-timelineProgress.style.height = maxTimelineProgress + "%";
-  if (timelineHeightPercent > maxTimelineProgress) {
-      maxTimelineProgress = timelineHeightPercent;
+  if (progress > maxTimelineProgress) {
+      maxTimelineProgress = progress;
   }
 
   timelineProgress.style.height = maxTimelineProgress + "%";
 
+  // ===== DOT + CARD ACTIVATION =====
+
   items.forEach(item => {
-      const endSection = document.getElementById("timelineEnd");
-const endDot = document.getElementById("endDot");
 
-if (maxTimelineProgress >= 99) {
-    endSection.classList.add("show");
-    endDot.classList.add("active");
-}
-      const dotPosition = item.offsetTop + 90;
-      const lineHeightPixels = (maxTimelineProgress / 100) * timeline.offsetHeight;
+      const itemRect = item.getBoundingClientRect();
+      const itemCenter = itemRect.top + itemRect.height / 2;
 
-      if (lineHeightPixels >= dotPosition) {
+      if (windowCenter >= itemCenter) {
           item.classList.add('active');
           item.classList.add('show');
       }
+
   });
+
+  // ===== FINAL NOTICE =====
+
+  if (maxTimelineProgress >= 99) {
+      endSection.classList.add("show");
+      endDot.classList.add("active");
+  }
 
 });
 </script>
