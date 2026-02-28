@@ -338,39 +338,47 @@ solar-system boundaries.
 <footer>
 © 2026 Zenith Space Industries | Engineering Beyond Earth
 </footer>
-
 <script>
 const items = document.querySelectorAll('.timeline-item');
 const timeline = document.getElementById('timeline');
 const timelineProgress = document.getElementById('timelineProgress');
+const progressBar = document.getElementById("progressBar");
+
+let maxTimelineProgress = 0; // prevents going backwards
 
 window.addEventListener('scroll', () => {
 
-  const trigger = window.innerHeight * 0.85;
-
-  items.forEach(item => {
-    const top = item.getBoundingClientRect().top;
-    if (top < trigger) {
-  item.classList.add('show');
-  item.classList.add('active');
-}
-  });
-
-  /* Top Scroll Progress Bar */
-  let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  // -------- PAGE TOP PROGRESS BAR --------
+  let winScroll = document.documentElement.scrollTop || document.body.scrollTop;
   let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   let scrolled = (winScroll / height) * 100;
-  document.getElementById("progressBar").style.width = scrolled + "%";
+  progressBar.style.width = scrolled + "%";
 
-  /* CENTER-BASED Timeline Growth */
+  // -------- TIMELINE GROWTH BASED ON PAGE SCROLL --------
   const timelineRect = timeline.getBoundingClientRect();
-  const windowCenter = window.innerHeight / 2;
+  const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = window.scrollY / pageHeight;
 
-  if (timelineRect.top < windowCenter && timelineRect.bottom > 0) {
-    let progress = (windowCenter - timelineRect.top) / timelineRect.height;
-    progress = Math.max(0, Math.min(progress, 1));
-    timelineProgress.style.height = (progress * 100) + "%";
+  let timelineHeightPercent = scrollPercent * 100;
+
+  // Prevent timeline from shrinking when scrolling up
+  if (timelineHeightPercent > maxTimelineProgress) {
+      maxTimelineProgress = timelineHeightPercent;
   }
+
+  timelineProgress.style.height = maxTimelineProgress + "%";
+
+  // -------- DOT ACTIVATION WHEN LINE REACHES THEM --------
+  items.forEach(item => {
+      const dotPosition = item.offsetTop + 90; // aligns with your dot position
+      const lineHeightPixels = (maxTimelineProgress / 100) * timeline.offsetHeight;
+
+      if (lineHeightPixels >= dotPosition) {
+          item.classList.add('active');
+          item.classList.add('show');
+      }
+  });
+
 });
 </script>
 
