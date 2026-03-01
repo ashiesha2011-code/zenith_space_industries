@@ -270,6 +270,10 @@ form.addEventListener("submit", async function(e) {
     });
 
     if (response.ok) {
+    console.log("Success");
+} else {
+    console.log(await response.text());
+}
         message.innerHTML = "🚀 Mission Submitted Successfully!";
         form.reset();
     } else {
