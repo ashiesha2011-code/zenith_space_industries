@@ -89,10 +89,6 @@ input, textarea {
     font-family:inherit;
 }
 
-input[type="file"] {
-    background:white;
-}
-
 button {
     padding:12px;
     border:none;
@@ -122,35 +118,6 @@ button:hover {
 .hidden {
     display:none;
 }
-.file-upload {
-    position: relative;
-}
-
-.file-upload input[type="file"] {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.file-box {
-    padding: 20px;
-    border-radius: 12px;
-    border: 2px dashed cyan;
-    text-align: center;
-    transition: 0.3s;
-    background: rgba(255,255,255,0.05);
-}
-
-.file-box:hover {
-    background: rgba(0,255,255,0.1);
-}
-
-.file-selected {
-    border: 2px solid lime;
-    background: rgba(0,255,0,0.1);
-}
 </style>
 </head>
 
@@ -178,6 +145,12 @@ button:hover {
     <p><strong>Theme:</strong> Lunar Autonomous Exploration Rover</p>
     <p><strong>Submission Window:</strong> 14 Days</p>
 
+    <h3>How To Submit</h3>
+    <p>
+        Upload your presentation (PDF / PPT / DOC) to Google Drive or OneDrive.
+        Set sharing to <strong>"Anyone with link can view"</strong> and paste the link below.
+    </p>
+
     <h3>Evaluation Criteria</h3>
     <ul>
         <li>Innovation</li>
@@ -191,21 +164,14 @@ button:hover {
 
 <h2>Submit Your Project</h2>
 
-<form id="zsiForm" enctype="multipart/form-data">
+<form id="zsiForm">
 
     <input type="text" name="name" placeholder="Full Name" required>
     <input type="number" name="age" placeholder="Age" required>
     <input type="text" name="nationality" placeholder="Nationality" required>
     <input type="text" name="project_title" placeholder="Project Title" required>
+    <input type="url" name="project_link" placeholder="Google Drive / OneDrive Link" required>
 
-    <label>Upload Project File</label>
-
-<div class="file-upload">
-    <input type="file" id="fileInput" name="attachment" accept=".pdf,.ppt,.pptx,.doc,.docx" required>
-    <div class="file-box" id="fileBox">
-        📁 Click to Upload (PDF / PPT / DOC)
-    </div>
-</div>
     <button type="submit">Submit Mission</button>
     <div id="formMessage"></div>
 
@@ -220,17 +186,16 @@ button:hover {
     <p><strong>🥉 Third Place:</strong> Name – Project Title</p>
 
     <p style="margin-top:20px;">
-        Congratulations to all contributors. The ZSI Hall of Fame will begin from the next mission cycle.
+        Congratulations to all contributors. ZSI Hall of Fame begins from the next mission cycle.
     </p>
 </div>
 
 </div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-    /* ==============================
-       SET YOUR DEADLINE HERE
-       ============================== */
+    /* SET DEADLINE HERE */
     const deadline = new Date("2026-03-15T23:59:59").getTime();
 
     const form = document.getElementById("zsiForm");
@@ -238,12 +203,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const countdownEl = document.getElementById("countdown");
     const resultsSection = document.getElementById("resultsSection");
 
-    const fileInput = document.getElementById("fileInput");
-    const fileBox = document.getElementById("fileBox");
-
-    /* ==============================
-       COUNTDOWN TIMER
-       ============================== */
     const timer = setInterval(function() {
 
         const now = new Date().getTime();
@@ -251,11 +210,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (distance < 0) {
             clearInterval(timer);
-
             countdownEl.innerHTML = "🚀 Submissions Closed — Results Announced";
             form.classList.add("disabled");
             resultsSection.classList.remove("hidden");
-
             return;
         }
 
@@ -273,31 +230,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }, 1000);
 
-    /* ==============================
-       FILE PREVIEW BOX
-       ============================== */
-    if (fileInput && fileBox) {
-        fileInput.addEventListener("change", function() {
-
-            if (fileInput.files.length > 0) {
-
-                const file = fileInput.files[0];
-
-                fileBox.innerHTML = "📄 " + file.name;
-                fileBox.classList.add("file-selected");
-
-            }
-
-        });
-    }
-
-    /* ==============================
-       FORM SUBMISSION
-       ============================== */
     form.addEventListener("submit", async function(e) {
 
         e.preventDefault();
-
         message.innerHTML = "⏳ Submitting...";
 
         const formData = new FormData(form);
@@ -307,34 +242,18 @@ document.addEventListener("DOMContentLoaded", function() {
             const response = await fetch("https://formspree.io/f/xvzbnvlg", {
                 method: "POST",
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
 
             if (response.ok) {
-
                 message.innerHTML = "🚀 Mission Submitted Successfully!";
                 form.reset();
-
-                // Reset file box text
-                fileBox.innerHTML = "📁 Click to Upload (PDF / PPT / DOC)";
-                fileBox.classList.remove("file-selected");
-
             } else {
-
-                const errorText = await response.text();
-                console.log("Formspree error:", errorText);
-
                 message.innerHTML = "⚠ Error submitting mission.";
-
             }
 
         } catch (error) {
-
-            console.log("Network error:", error);
             message.innerHTML = "⚠ Network error. Try again.";
-
         }
 
     });
