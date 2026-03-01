@@ -122,6 +122,35 @@ button:hover {
 .hidden {
     display:none;
 }
+.file-upload {
+    position: relative;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-box {
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px dashed cyan;
+    text-align: center;
+    transition: 0.3s;
+    background: rgba(255,255,255,0.05);
+}
+
+.file-box:hover {
+    background: rgba(0,255,255,0.1);
+}
+
+.file-selected {
+    border: 2px solid lime;
+    background: rgba(0,255,0,0.1);
+}
 </style>
 </head>
 
@@ -170,8 +199,13 @@ button:hover {
     <input type="text" name="project_title" placeholder="Project Title" required>
 
     <label>Upload Project File</label>
-    <input type="file" name="attachment" accept=".pdf,.ppt,.pptx,.doc,.docx" required>
 
+<div class="file-upload">
+    <input type="file" id="fileInput" name="attachment" accept=".pdf,.ppt,.pptx,.doc,.docx" required>
+    <div class="file-box" id="fileBox">
+        📁 Click to Upload (PDF / PPT / DOC)
+    </div>
+</div>
     <button type="submit">Submit Mission</button>
     <div id="formMessage"></div>
 
@@ -242,7 +276,16 @@ form.addEventListener("submit", async function(e) {
         message.innerHTML = "⚠ Error submitting mission.";
     }
 });
+const fileInput = document.getElementById("fileInput");
+const fileBox = document.getElementById("fileBox");
 
+fileInput.addEventListener("change", function() {
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        fileBox.innerHTML = "📄 " + file.name;
+        fileBox.classList.add("file-selected");
+    }
+});
 </script>
 
 </body>
