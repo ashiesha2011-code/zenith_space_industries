@@ -71,6 +71,13 @@ h1 {
     color:cyan;
 }
 
+.submission-counter {
+    text-align:center;
+    font-size:20px;
+    color:cyan;
+    margin-bottom:30px;
+}
+
 form {
     display:flex;
     flex-direction:column;
@@ -162,6 +169,10 @@ button:hover {
 
 <div class="countdown" id="countdown"></div>
 
+<div class="submission-counter" id="submissionCounter">
+    🚀 Total Submissions This Cycle: 0
+</div>
+
 <h2>Submit Your Project</h2>
 
 <form id="zsiForm">
@@ -177,7 +188,6 @@ button:hover {
 
 </form>
 
-<!-- RESULTS SECTION -->
 <div id="resultsSection" class="results-box hidden">
     <h2>🚀 Mission Cycle 01 Results</h2>
 
@@ -195,16 +205,20 @@ button:hover {
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-    /* SET DEADLINE HERE */
     const deadline = new Date("2026-03-15T23:59:59").getTime();
 
     const form = document.getElementById("zsiForm");
     const message = document.getElementById("formMessage");
     const countdownEl = document.getElementById("countdown");
     const resultsSection = document.getElementById("resultsSection");
+    const counterElement = document.getElementById("submissionCounter");
+
+    let submissionCount = localStorage.getItem("zsiSubmissionCount");
+    if (!submissionCount) submissionCount = 0;
+
+    counterElement.innerHTML = "🚀 Total Submissions This Cycle: " + submissionCount;
 
     const timer = setInterval(function() {
-
         const now = new Date().getTime();
         const distance = deadline - now;
 
@@ -246,8 +260,14 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             if (response.ok) {
+
+                submissionCount++;
+                localStorage.setItem("zsiSubmissionCount", submissionCount);
+                counterElement.innerHTML = "🚀 Total Submissions This Cycle: " + submissionCount;
+
                 message.innerHTML = "🚀 Mission Submitted Successfully!";
                 form.reset();
+
             } else {
                 message.innerHTML = "⚠ Error submitting mission.";
             }
