@@ -262,3 +262,52 @@ footer {
     }
 
 }
+/* ============================= */
+/* FUTURE PAGE MOBILE FIX */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+  .timeline {
+    width: 100%;
+    padding: 50px 0;
+  }
+
+  .timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 80px;
+    text-align: center;
+  }
+
+  .timeline-item.left,
+  .timeline-item.right {
+    left: 0 !important;
+  }
+
+  .timeline-card {
+    width: 100%;
+    max-width: 95%;
+    margin: 0 auto;
+  }
+
+  .timeline-dot {
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+
+  .timeline-item h3 {
+    font-size: 24px;
+  }
+
+  .timeline-item p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+}
