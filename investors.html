@@ -237,7 +237,7 @@ button:hover {
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-    const deadline = null;
+    const deadline = new Date("March 20, 2026 23:59:59").getTime();
 
     const form = document.getElementById("zsiForm");
     const message = document.getElementById("formMessage");
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         countdownEl.innerHTML =
