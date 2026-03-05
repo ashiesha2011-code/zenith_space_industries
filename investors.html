@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const resultsSection = document.getElementById("resultsSection");
     const counterElement = document.getElementById("submissionCounter");
 
-    let submissionCount = localStorage.getItem("zsiSubmissionCount");
+    let submissionCount = 1;
     if (!submissionCount) submissionCount = 0;
 
     counterElement.innerHTML = "🚀 Total Submissions This Cycle: " + submissionCount;
