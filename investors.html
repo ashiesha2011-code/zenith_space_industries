@@ -156,6 +156,30 @@ button:hover {
 .results-box a:hover {
   text-decoration: underline;
 }
+.file-preview{
+    margin-top:10px;
+    padding:16px;
+    border:2px solid #00ff88;
+    border-radius:10px;
+    background:rgba(0,255,120,0.08);
+    color:#00ff88;
+    font-size:14px;
+    cursor:pointer;
+    transition:0.3s;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.file-preview:hover{
+    box-shadow:0 0 12px #00ff88;
+    transform:scale(1.01);
+}
+
+.file-selected{
+    border:2px solid #00ff88;
+    background:rgba(0,255,120,0.12);
+}
 </style>
 </head>
 
@@ -219,7 +243,13 @@ Creativity and original thinking are valued more than technical perfection.
     <input type="number" name="age" placeholder="Age" required>
     <input type="text" name="nationality" placeholder="Nationality" required>
     <input type="text" name="project_title" placeholder="Project Title" required>
-    <input type="file" id="projectFile" required>
+    <label for="projectFile">Upload Project File</label>
+
+<input type="file" id="projectFile" required style="display:none;">
+
+<div id="filePreview" class="file-preview">
+📁 Click to upload your project file
+</div>
     <button type="submit">Submit Mission</button>
     <div id="formMessage"></div>
 
@@ -388,6 +418,30 @@ form.reset()
     });
 
 });
+const fileInput = document.getElementById("projectFile")
+const previewBox = document.getElementById("filePreview")
+
+previewBox.addEventListener("click", () => {
+    fileInput.click()
+})
+
+fileInput.addEventListener("change", () => {
+
+const file = fileInput.files[0]
+
+if(!file) return
+
+previewBox.classList.add("file-selected")
+
+const size = (file.size/1024/1024).toFixed(2)
+
+previewBox.innerHTML =
+"📄 " + file.name +
+"<br><span style='font-size:12px;color:#9cffc7'>" +
+size + " MB • File ready for upload</span>"
+"<br><span style='font-size:12px;color:#9cffc7'>File ready for upload</span>"
+
+})
 async function loadWinners(){
 
 const { data } = await supabaseClient
