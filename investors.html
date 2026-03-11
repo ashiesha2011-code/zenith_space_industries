@@ -315,19 +315,7 @@ const { data } = await supabaseClient
 counterElement.innerHTML =
 "🚀 Total Missions Submitted: <strong>" + data.length + "</strong>"
 
-loadSubmissionCount()
-    supabaseClient
-.channel('submissions-channel')
-.on(
-  'postgres_changes',
-  {
-    event: 'INSERT',
-    schema: 'public',
-    table: 'submissions'
-  },
-  payload => {
-    loadSubmissionCount()
-  }
+}
 )
 .subscribe()
     const timer = setInterval(function() {
@@ -379,9 +367,6 @@ return
 }
 
 const fileName = Date.now() + "-" + file.name
-
-const fileName = Date.now() + "-" + file.name
-
 // Upload file to Supabase storage
 const { error: uploadError } = await supabaseClient.storage
 .from("mission-files")
@@ -424,8 +409,6 @@ loadSubmissionCount()
         }
 
     });
-
-});
 const fileInput = document.getElementById("projectFile")
 const previewBox = document.getElementById("filePreview")
 
@@ -435,6 +418,21 @@ previewBox.addEventListener("click", () => {
 
 fileInput.addEventListener("change", () => {
 
+const file = fileInput.files[0]
+
+if(!file) return
+
+previewBox.classList.add("file-selected")
+
+const size = (file.size/1024/1024).toFixed(2)
+
+previewBox.innerHTML =
+"📄 " + file.name +
+"<br><span style='font-size:12px;color:#9cffc7'>" +
+size + " MB • File ready for upload</span>"
+
+})
+});
 const file = fileInput.files[0]
 
 if(!file) return
