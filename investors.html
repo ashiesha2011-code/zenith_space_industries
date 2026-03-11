@@ -158,11 +158,11 @@ button:hover {
 }
 .file-preview{
     margin-top:10px;
-    padding:16px;
-    border:2px solid #00ff88;
-    border-radius:10px;
-    background:rgba(0,255,120,0.08);
-    color:#00ff88;
+    padding:18px;
+    border:2px solid #00ff9d;
+    border-radius:12px;
+    background:rgba(0,255,140,0.08);
+    color:#00ff9d;
     font-size:14px;
     cursor:pointer;
     transition:0.3s;
@@ -172,13 +172,13 @@ button:hover {
 }
 
 .file-preview:hover{
-    box-shadow:0 0 12px #00ff88;
-    transform:scale(1.01);
+    box-shadow:0 0 18px rgba(0,255,140,0.8);
+    transform:scale(1.02);
 }
 
 .file-selected{
-    border:2px solid #00ff88;
-    background:rgba(0,255,120,0.12);
+    border:2px solid #00ff9d;
+    background:rgba(0,255,140,0.15);
 }
 </style>
 </head>
@@ -209,8 +209,7 @@ button:hover {
 
     <h3>How To Submit</h3>
     <p>
-        Upload your presentation file directly (PDF / PPT / DOC up to 20MB)
-        Set sharing to <strong>"Anyone with link can view"</strong> and paste the link below.
+        Upload your presentation file directly (PDF / PPT / DOC up to 25MB)
     </p>
 
     <h3>Evaluation Criteria</h3>
@@ -314,11 +313,23 @@ const { data } = await supabaseClient
 .select("id")
 
 counterElement.innerHTML =
-"🚀 Total Submissions This Cycle: " + data.length
-
-}
+"🚀 Total Missions Submitted: <strong>" + data.length + "</strong>"
 
 loadSubmissionCount()
+    supabaseClient
+.channel('submissions-channel')
+.on(
+  'postgres_changes',
+  {
+    event: 'INSERT',
+    schema: 'public',
+    table: 'submissions'
+  },
+  payload => {
+    loadSubmissionCount()
+  }
+)
+.subscribe()
     const timer = setInterval(function() {
         const now = new Date().getTime();
         const distance = deadline - now;
@@ -361,6 +372,14 @@ const project_title = formData.get("project_title")
 
 const file = document.getElementById("projectFile").files[0]
 
+// FILE SIZE PROTECTION
+if(file.size > 25 * 1024 * 1024){
+message.innerHTML = "⚠ File too large (max 25MB)"
+return
+}
+
+const fileName = Date.now() + "-" + file.name
+
 const fileName = Date.now() + "-" + file.name
 
 // Upload file to Supabase storage
@@ -398,19 +417,8 @@ if(error){
 
 message.innerHTML = "🚀 Mission Submitted Successfully!"
 form.reset()
-            if (response.ok) {
 
-                submissionCount++;
-                localStorage.setItem("zsiSubmissionCount", submissionCount);
-                counterElement.innerHTML = "🚀 Total Submissions This Cycle: " + submissionCount;
-
-                message.innerHTML = "🚀 Mission Submitted Successfully!";
-                form.reset();
-
-            } else {
-                message.innerHTML = "⚠ Error submitting mission.";
-            }
-
+loadSubmissionCount()
         } catch (error) {
             message.innerHTML = "⚠ Network error. Try again.";
         }
@@ -439,8 +447,6 @@ previewBox.innerHTML =
 "📄 " + file.name +
 "<br><span style='font-size:12px;color:#9cffc7'>" +
 size + " MB • File ready for upload</span>"
-"<br><span style='font-size:12px;color:#9cffc7'>File ready for upload</span>"
-
 })
 async function loadWinners(){
 
