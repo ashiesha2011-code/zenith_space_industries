@@ -315,8 +315,8 @@ const { data } = await supabaseClient
 counterElement.innerHTML =
 "🚀 Total Missions Submitted: <strong>" + data.length + "</strong>"
 
-}
-)
+})
+loadSubmissionCount()
 .subscribe()
     const timer = setInterval(function() {
         const now = new Date().getTime();
@@ -429,23 +429,14 @@ const size = (file.size/1024/1024).toFixed(2)
 previewBox.innerHTML =
 "📄 " + file.name +
 "<br><span style='font-size:12px;color:#9cffc7'>" +
-size + " MB • File ready for upload</span>"
+size + " MB • Ready for upload</span>"
 
 })
 });
-const file = fileInput.files[0]
-
-if(!file) return
-
-previewBox.classList.add("file-selected")
-
-const size = (file.size/1024/1024).toFixed(2)
-
-previewBox.innerHTML =
-"📄 " + file.name +
-"<br><span style='font-size:12px;color:#9cffc7'>" +
-size + " MB • File ready for upload</span>"
-})
+if(!file){
+message.innerHTML = "⚠ Please select a file."
+return
+}
 async function loadWinners(){
 
 const { data } = await supabaseClient
