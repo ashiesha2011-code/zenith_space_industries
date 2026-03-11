@@ -388,6 +388,36 @@ form.reset()
     });
 
 });
+async function loadWinners(){
+
+const { data } = await supabaseClient
+.from("submissions")
+.select("*")
+.eq("is_winner", true)
+.order("rank", { ascending: true })
+
+if(!data || data.length === 0) return
+
+document.getElementById("resultsSection").classList.remove("hidden")
+
+if(data[0]){
+document.getElementById("winner1").innerText = data[0].project_title
+document.getElementById("winner1").href = data[0].file_url
+}
+
+if(data[1]){
+document.getElementById("winner2").innerText = data[1].project_title
+document.getElementById("winner2").href = data[1].file_url
+}
+
+if(data[2]){
+document.getElementById("winner3").innerText = data[2].project_title
+document.getElementById("winner3").href = data[2].file_url
+}
+
+}
+
+loadWinners()
 </script>
 
 </body>
