@@ -169,8 +169,8 @@ button:hover {
     display:flex;
     align-items:center;
     gap:10px;
+    width:100%;
 }
-
 .file-preview:hover{
     box-shadow:0 0 18px rgba(0,255,140,0.8);
     transform:scale(1.02);
@@ -308,15 +308,19 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
 
 async function loadSubmissionCount(){
 
-const { data } = await supabaseClient
+const { data, error } = await supabaseClient
 .from("submissions")
 .select("id")
 
-counterElement.innerHTML =
-"🚀 Total Missions Submitted: <strong>" + data.length + "</strong>"
+if(error) return
 
-})
+counterElement.innerHTML =
+"🚀 Total Submissions This Cycle: <strong>" + data.length + "</strong>"
+
+}
+
 loadSubmissionCount()
+
 .subscribe()
     const timer = setInterval(function() {
         const now = new Date().getTime();
@@ -359,7 +363,10 @@ const nationality = formData.get("nationality")
 const project_title = formData.get("project_title")
 
 const file = document.getElementById("projectFile").files[0]
-
+  if(!file){
+message.innerHTML = "⚠ Please select a file."
+return
+}
 // FILE SIZE PROTECTION
 if(file.size > 25 * 1024 * 1024){
 message.innerHTML = "⚠ File too large (max 25MB)"
@@ -412,8 +419,8 @@ loadSubmissionCount()
 const fileInput = document.getElementById("projectFile")
 const previewBox = document.getElementById("filePreview")
 
-previewBox.addEventListener("click", () => {
-    fileInput.click()
+previewBox.addEventListener("click", function(){
+fileInput.click()
 })
 
 fileInput.addEventListener("change", () => {
@@ -433,10 +440,6 @@ size + " MB • Ready for upload</span>"
 
 })
 });
-if(!file){
-message.innerHTML = "⚠ Please select a file."
-return
-}
 async function loadWinners(){
 
 const { data } = await supabaseClient
