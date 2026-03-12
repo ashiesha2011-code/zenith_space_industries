@@ -77,10 +77,35 @@ Get notified about new missions, results, and space exploration ideas.
 <div id="popupMessage"></div>
 
 </form>
+
 </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const supabaseUrl = "https://doithmpdnvwcipbirzxw.supabase.co"
+const supabaseKey = "sb_publishable_ehSNVy7NVv_JXm2JeJwLCg_eA4_gUNI"
+
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
+
+const popup = document.getElementById("signupPopup")
+const closeBtn = document.getElementById("closePopup")
 const popupForm = document.getElementById("popupForm")
 
+// show popup after 5 seconds
+setTimeout(function(){
+popup.classList.remove("hidden")
+},5000)
+
+// close popup
+closeBtn.onclick = function(){
+popup.classList.add("hidden")
+}
+
+// submit email
 popupForm.addEventListener("submit", async function(e){
 
 e.preventDefault()
@@ -92,21 +117,21 @@ const { error } = await supabaseClient
 .insert([{ email: email }])
 
 if(error){
-
 document.getElementById("popupMessage").innerHTML =
-"⚠ Something went wrong."
-
+"⚠ Could not save email"
 return
-
 }
 
 document.getElementById("popupMessage").innerHTML =
-"🚀 Welcome to the ZSI Community!"
+"🚀 Welcome to ZSI!"
 
 popupForm.reset()
 
 })
-  </script>
+
+})
+
+</script>
 </div>
 </body>
 </html>
