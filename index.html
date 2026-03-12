@@ -56,7 +56,7 @@ Reusable launch vehicles designed for precision missions beyond the Kármán Lin
 </footer>
 
 <script src="script.js"></script>
-<div id="signupPopup" class="popup hidden">
+<div id="signupPopup" class="popup">
 
 <div class="popup-box">
 
@@ -65,15 +65,15 @@ Reusable launch vehicles designed for precision missions beyond the Kármán Lin
 <h2>🚀 Join the ZSI Community</h2>
 
 <p>
-Get notified about new missions, results, and space exploration ideas.
+Get notified about new missions, results, and future space exploration ideas.
 </p>
 
 <form id="popupForm">
 
-<input type="email" id="popupEmail" placeholder="Enter your email" required>
+<input type="text" id="popupContact" placeholder="Enter your email or phone number" required>
 
-<button type="submit">Join</button>
-
+<button type="submit">Join Mission Lab</button>
+<p> Your email or phone number will only be used for updates. No spam.</p>
 <div id="popupMessage"></div>
 
 </form>
@@ -83,7 +83,6 @@ Get notified about new missions, results, and space exploration ideas.
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-
 document.addEventListener("DOMContentLoaded", function(){
 
 const supabaseUrl = "https://doithmpdnvwcipbirzxw.supabase.co"
@@ -95,42 +94,41 @@ const popup = document.getElementById("signupPopup")
 const closeBtn = document.getElementById("closePopup")
 const popupForm = document.getElementById("popupForm")
 
-// show popup after 5 seconds
-setTimeout(function(){
-popup.classList.remove("hidden")
+/* SHOW POPUP AFTER 5 SECONDS */
+setTimeout(()=>{
+popup.classList.add("show")
 },5000)
 
-// close popup
-closeBtn.onclick = function(){
-popup.classList.add("hidden")
+/* CLOSE POPUP */
+closeBtn.onclick = ()=>{
+popup.classList.remove("show")
 }
 
-// submit email
+/* SUBMIT DATA */
 popupForm.addEventListener("submit", async function(e){
 
 e.preventDefault()
 
-const email = document.getElementById("popupEmail").value
+const contact = document.getElementById("popupContact").value
 
 const { error } = await supabaseClient
 .from("subscribers")
-.insert([{ email: email }])
+.insert([{ contact: contact }])
 
 if(error){
-document.getElementById("popupMessage").innerHTML =
-"⚠ Could not save email"
+
+document.getElementById("popupMessage").innerHTML="⚠ Could not save."
+
 return
 }
 
-document.getElementById("popupMessage").innerHTML =
-"🚀 Welcome to ZSI!"
+document.getElementById("popupMessage").innerHTML="🚀 Welcome to ZSI!"
 
 popupForm.reset()
 
 })
 
 })
-
 </script>
 </div>
 </body>
