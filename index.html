@@ -56,5 +56,57 @@ Reusable launch vehicles designed for precision missions beyond the Kármán Lin
 </footer>
 
 <script src="script.js"></script>
+<div id="signupPopup" class="popup hidden">
+
+<div class="popup-box">
+
+<button class="popup-close" id="closePopup">✕</button>
+
+<h2>🚀 Join the ZSI Community</h2>
+
+<p>
+Get notified about new missions, results, and space exploration ideas.
+</p>
+
+<form id="popupForm">
+
+<input type="email" id="popupEmail" placeholder="Enter your email" required>
+
+<button type="submit">Join</button>
+
+<div id="popupMessage"></div>
+
+</form>
+</div>
+<script>
+const popupForm = document.getElementById("popupForm")
+
+popupForm.addEventListener("submit", async function(e){
+
+e.preventDefault()
+
+const email = document.getElementById("popupEmail").value
+
+const { error } = await supabaseClient
+.from("subscribers")
+.insert([{ email: email }])
+
+if(error){
+
+document.getElementById("popupMessage").innerHTML =
+"⚠ Something went wrong."
+
+return
+
+}
+
+document.getElementById("popupMessage").innerHTML =
+"🚀 Welcome to the ZSI Community!"
+
+popupForm.reset()
+
+})
+  </script>
+</div>
 </body>
 </html>
