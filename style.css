@@ -400,7 +400,7 @@ margin-bottom:15px;
 }
 
 /* JOIN BUTTON */
-.popup-box button{
+.popup-box form button{
 width:100%;
 padding:12px;
 border-radius:8px;
@@ -419,11 +419,12 @@ background:#00a6ff;
 /* CLOSE BUTTON */
 .popup-close{
 position:absolute;
-top:12px;
-right:15px;
+top:15px;
+right:20px;
 background:none;
 border:none;
 color:white;
-font-size:20px;
+font-size:24px;
 cursor:pointer;
+line-height:1;
 }
