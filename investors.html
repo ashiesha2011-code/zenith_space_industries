@@ -242,6 +242,7 @@ Creativity and original thinking are valued more than technical perfection.
     <input type="number" name="age" placeholder="Age" required>
     <input type="text" name="nationality" placeholder="Nationality" required>
     <input type="text" name="project_title" placeholder="Project Title" required>
+    <input type="text" name="contact" placeholder="Email or Phone Number" required>
     <input type="file" id="projectFile" required style="display:none;">
 
 <div id="filePreview" class="file-preview">
@@ -358,7 +359,14 @@ const name = formData.get("name")
 const age = formData.get("age")
 const nationality = formData.get("nationality")
 const project_title = formData.get("project_title")
+const contact = formData.get("contact")
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const phonePattern = /^[0-9]{7,15}$/
 
+if(!emailPattern.test(contact) && !phonePattern.test(contact)){
+message.innerHTML = "⚠ Enter a valid email or phone number."
+return
+}
 const file = document.getElementById("projectFile").files[0]
   if(!file){
 message.innerHTML = "⚠ Please select a file."
@@ -396,9 +404,9 @@ const { error } = await supabaseClient
     age,
     nationality,
     project_title,
+    contact,
     file_url:fileUrl
 }])
-
 if(error){
     message.innerHTML = "⚠ Submission failed."
     return
