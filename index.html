@@ -115,18 +115,22 @@ popupForm.addEventListener("submit", async function(e){
 
 e.preventDefault()
 
-const contact = document.getElementById("popupContact").value.trim()
+const email = document.getElementById("popupEmail").value.trim()
 
-/* VALIDATION */
+const { error } = await supabaseClient.auth.signInWithOtp({
+  email: email
+})
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const phonePattern = /^[0-9]{7,15}$/
-
-if(!emailPattern.test(contact) && !phonePattern.test(contact)){
+if(error){
 document.getElementById("popupMessage").innerHTML =
-"⚠ Enter a valid email or phone number"
+"⚠ Could not send verification email"
 return
 }
+
+document.getElementById("popupMessage").innerHTML =
+"📧 Check your email for the verification link"
+
+})
 
 /* CHECK DUPLICATES */
 
