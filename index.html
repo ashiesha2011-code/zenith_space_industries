@@ -72,7 +72,10 @@ Get notified about new missions, results, and future space exploration ideas.
 
 <input type="email" id="popupEmail" placeholder="Enter your email address" required>
 <button type="submit">Join ZSI community</button>
-<p> Your email or phone number will only be used for updates. No spam.</p>
+<button type="button" id="googleLogin" class="google-btn">
+Sign in with Google
+</button>
+<p> Your email will only be used for updates. No spam.</p>
 <div id="popupMessage"></div>
 
 </form>
@@ -154,6 +157,16 @@ await supabaseClient
 localStorage.setItem("zsi_signedup","true")
 
 })
+document.getElementById("googleLogin").onclick = async () => {
+
+await supabaseClient.auth.signInWithOAuth({
+provider: "google",
+options: {
+redirectTo: "https://ashiesha2011-code.github.io/zenith_space_industries"
+}
+})
+
+}
 })
 </script>
 </body>
