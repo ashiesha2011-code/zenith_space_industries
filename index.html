@@ -129,7 +129,31 @@ document.getElementById("popupMessage").innerHTML =
 "📧 Check your email for the verification link"
 
 })
+// check if user just logged in via email verification
+supabaseClient.auth.getSession().then(async ({ data }) => {
 
+if(!data.session) return
+
+const email = data.session.user.email
+
+// check if already saved
+const { data: existing } = await supabaseClient
+.from("subscribers")
+.select("email")
+.eq("email", email)
+
+if(existing.length === 0){
+
+await supabaseClient
+.from("subscribers")
+.insert([{ email: email }])
+
+}
+
+// hide popup once subscribed
+localStorage.setItem("zsi_signedup","true")
+
+})
 })
 </script>
 </body>
