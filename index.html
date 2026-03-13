@@ -93,14 +93,12 @@ const popup = document.getElementById("signupPopup")
 const closeBtn = document.getElementById("closePopup")
 const popupForm = document.getElementById("popupForm")
 
-/* SHOW POPUP AFTER 5 SECONDS (ONLY IF USER HAS NOT SIGNED UP) */
+/* SHOW POPUP AFTER 5 SECONDS */
 
 if(!localStorage.getItem("zsi_signedup")){
-
 setTimeout(()=>{
 popup.classList.add("show")
 },5000)
-
 }
 
 /* CLOSE POPUP */
@@ -109,7 +107,7 @@ closeBtn.onclick = ()=>{
 popup.classList.remove("show")
 }
 
-/* SUBMIT DATA */
+/* EMAIL OTP LOGIN */
 
 popupForm.addEventListener("submit", async function(e){
 
@@ -118,7 +116,7 @@ e.preventDefault()
 const email = document.getElementById("popupEmail").value.trim()
 
 const { error } = await supabaseClient.auth.signInWithOtp({
-  email: email
+email: email
 })
 
 if(error){
@@ -129,50 +127,6 @@ return
 
 document.getElementById("popupMessage").innerHTML =
 "📧 Check your email for the verification link"
-
-})
-
-/* CHECK DUPLICATES */
-
-const { data: existing } = await supabaseClient
-.from("subscribers")
-.select("*")
-.eq("contact", contact)
-
-if(existing.length > 0){
-document.getElementById("popupMessage").innerHTML =
-"⚠ You are already subscribed!"
-return
-}
-
-/* INSERT DATA */
-
-const { error } = await supabaseClient
-.from("subscribers")
-.insert([{ contact: contact }])
-
-if(error){
-document.getElementById("popupMessage").innerHTML =
-"⚠ Could not save."
-return
-}
-
-/* SUCCESS MESSAGE */
-
-document.getElementById("popupMessage").innerHTML =
-"🚀 Welcome to ZSI!"
-
-popupForm.reset()
-
-/* SAVE THAT USER HAS SIGNED UP */
-
-localStorage.setItem("zsi_signedup", "true")
-
-/* AUTO CLOSE POPUP */
-
-setTimeout(()=>{
-popup.classList.remove("show")
-},500)
 
 })
 
