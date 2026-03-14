@@ -119,7 +119,10 @@ e.preventDefault()
 const email = document.getElementById("popupEmail").value.trim()
 
 const { error } = await supabaseClient.auth.signInWithOtp({
-email: email
+email: email,
+options: {
+emailRedirectTo: "https://ashiesha2011-code.github.io/zenith_space_industries"
+}
 })
 
 if(error){
@@ -149,8 +152,7 @@ if(existing.length === 0){
 
 await supabaseClient
 .from("subscribers")
-.insert([{ email: email }])
-
+.upsert([{ email: email }])
 }
 
 // hide popup once subscribed
