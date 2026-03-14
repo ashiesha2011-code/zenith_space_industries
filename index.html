@@ -71,6 +71,10 @@ Get notified about new missions, results, and future space exploration ideas.
 <form id="popupForm">
 
 <input type="email" id="popupEmail" placeholder="Enter your email address" required>
+<input id="popupOTP" type="text" placeholder="Enter OTP" style="display:none" />
+<button id="verifyOTP" style="display:none">
+Verify OTP
+</button>
 <button type="submit">Join ZSI community</button>
 <button type="button" id="googleLogin" class="google-btn">
 Sign in with Google
@@ -89,75 +93,114 @@ Sign in with Google
 
 document.addEventListener("DOMContentLoaded", async function(){
 
-const supabaseUrl = "https://doithmpdnvwcipbirzxw.supabase.co"
-const supabaseKey = "sb_publishable_ehSNVy7NVv_JXm2JeJwLCg_eA4_gUNI"
+const supabaseUrl="https://doithmpdnvwcipbirzxw.supabase.co"
+const supabaseKey="sb_publishable_ehSNVy7NVv_JXm2JeJwLCg_eA4_gUNI"
 
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
+const supabaseClient=supabase.createClient(supabaseUrl,supabaseKey)
 
-/* POPUP ELEMENTS */
+const popup=document.getElementById("signupPopup")
+const popupForm=document.getElementById("popupForm")
+const emailInput=document.getElementById("popupEmail")
+const otpInput=document.getElementById("popupOTP")
+const verifyBtn=document.getElementById("verifyOTP")
+const popupMessage=document.getElementById("popupMessage")
+const googleBtn=document.getElementById("googleLogin")
+const closeBtn=document.getElementById("closePopup")
 
-const popup = document.getElementById("signupPopup")
-const closeBtn = document.getElementById("closePopup")
-const popupForm = document.getElementById("popupForm")
-const popupMessage = document.getElementById("popupMessage")
-const googleBtn = document.getElementById("googleLogin")
+let currentEmail=""
 
-/* SHOW POPUP AFTER 5 SECONDS (IF NOT ALREADY SIGNED UP) */
+/* SHOW POPUP */
 
 if(!localStorage.getItem("zsi_signedup")){
 
 setTimeout(()=>{
+
 popup.classList.add("show")
+
 },5000)
 
 }
 
-/* CLOSE POPUP */
+/* CLOSE */
 
-closeBtn.onclick = ()=>{
+closeBtn.onclick=()=>{
+
 popup.classList.remove("show")
+
 }
 
-/* EMAIL MAGIC LINK LOGIN */
+/* SEND OTP */
 
-popupForm.addEventListener("submit", async function(e){
+popupForm.addEventListener("submit",async function(e){
 
 e.preventDefault()
 
-const email = document.getElementById("popupEmail").value.trim()
+const email=emailInput.value.trim()
 
-const { error } = await supabaseClient.auth.signInWithOtp({
+currentEmail=email
 
-email: email,
+const {error}=await supabaseClient.auth.signInWithOtp({
 
-options:{
-emailRedirectTo:
-"https://ashiesha2011-code.github.io/zenith_space_industries/"
-}
+email:email
 
 })
 
 if(error){
 
-popupMessage.innerHTML =
-"⚠ Could not send verification email"
+popupMessage.innerHTML="⚠ Could not send OTP"
 
 return
 
 }
 
-popupMessage.innerHTML =
-"📧 Check your email for the verification link"
+popupMessage.innerHTML="📩 OTP sent to your email"
+
+otpInput.style.display="block"
+verifyBtn.style.display="block"
 
 })
 
+/* VERIFY OTP */
+
+verifyBtn.onclick=async()=>{
+
+const token=otpInput.value.trim()
+
+const {data,error}=await supabaseClient.auth.verifyOtp({
+
+email:currentEmail,
+token:token,
+type:"email"
+
+})
+
+if(error){
+
+popupMessage.innerHTML="⚠ Invalid OTP"
+
+return
+
+}
+
+/* SAVE EMAIL */
+
+await supabaseClient
+.from("subscribers")
+.insert([{email:currentEmail}])
+
+localStorage.setItem("zsi_signedup","true")
+
+popup.classList.remove("show")
+
+}
+
 /* GOOGLE LOGIN */
 
-googleBtn.onclick = async () => {
+googleBtn.onclick=async()=>{
 
 await supabaseClient.auth.signInWithOAuth({
 
-provider: "google",
+provider:"google",
 
 options:{
 redirectTo:
@@ -168,17 +211,17 @@ redirectTo:
 
 }
 
-/* AFTER LOGIN (GOOGLE OR EMAIL) */
+/* AFTER GOOGLE LOGIN */
 
-supabaseClient.auth.onAuthStateChange(async (event, session)=>{
+supabaseClient.auth.onAuthStateChange(async(event,session)=>{
 
-if(event === "SIGNED_IN" && session){
+if(event==="SIGNED_IN" && session){
 
-const email = session.user.email
+const email=session.user.email
 
 await supabaseClient
 .from("subscribers")
-.upsert([{ email: email }])
+.upsert([{email:email}])
 
 localStorage.setItem("zsi_signedup","true")
 
