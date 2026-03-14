@@ -383,7 +383,7 @@ footer {
 
 /* CLOSE BUTTON â€” small square, top-right, blue glow on hover */
 .popup-close {
-  position: absolute;
+  position: relative;
   top: 12px;
   right: 12px;
   width: 12px;
