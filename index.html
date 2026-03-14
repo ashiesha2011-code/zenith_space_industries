@@ -98,12 +98,33 @@ const popupForm = document.getElementById("popupForm")
 
 /* SHOW POPUP AFTER 5 SECONDS */
 
-if(!localStorage.getItem("zsi_signedup")){
+async function checkSubscriber() {
+
+const { data: { session } } =
+await supabaseClient.auth.getSession()
+
+if(session){
+
+const email = session.user.email
+
+const { data } = await supabaseClient
+.from("subscribers")
+.select("email")
+.eq("email", email)
+
+if(data && data.length > 0){
+return
+}
+
+}
+
 setTimeout(()=>{
 popup.classList.add("show")
 },5000)
+
 }
 
+checkSubscriber()
 /* CLOSE POPUP */
 
 closeBtn.onclick = ()=>{
@@ -119,10 +140,11 @@ e.preventDefault()
 const email = document.getElementById("popupEmail").value.trim()
 
 const { error } = await supabaseClient.auth.signInWithOtp({
-email: email,
-options: {
-emailRedirectTo: "https://ashiesha2011-code.github.io/zenith_space_industries"
-}
+  email: email,
+  options: {
+    emailRedirectTo:
+      "https://ashiesha2011-code.github.io/zenith_space_industries/"
+  }
 })
 
 if(error){
@@ -169,6 +191,23 @@ redirectTo: "https://ashiesha2011-code.github.io/zenith_space_industries"
 })
 
 }
+supabaseClient.auth.onAuthStateChange(async (event, session) => {
+
+if(event === "SIGNED_IN"){
+
+const email = session.user.email
+
+await supabaseClient
+.from("subscribers")
+.upsert([{ email: email }])
+
+localStorage.setItem("zsi_signedup","true")
+
+popup.classList.remove("show")
+
+}
+
+})
 })
 </script>
 </body>
