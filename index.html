@@ -91,7 +91,23 @@ const supabaseUrl = "https://doithmpdnvwcipbirzxw.supabase.co"
 const supabaseKey = "sb_publishable_ehSNVy7NVv_JXm2JeJwLCg_eA4_gUNI"
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
+// check if user already logged in
+const { data: { session } } = await supabaseClient.auth.getSession()
 
+if(session){
+
+const email = session.user.email
+
+// save email to database
+await supabaseClient
+.from("subscribers")
+.upsert([{ email: email }])
+
+localStorage.setItem("zsi_signedup","true")
+
+popup.classList.remove("show")
+
+}
 const popup = document.getElementById("signupPopup")
 const closeBtn = document.getElementById("closePopup")
 const popupForm = document.getElementById("popupForm")
@@ -142,8 +158,7 @@ const email = document.getElementById("popupEmail").value.trim()
 const { error } = await supabaseClient.auth.signInWithOtp({
   email: email,
   options: {
-    emailRedirectTo:
-      "https://ashiesha2011-code.github.io/zenith_space_industries/"
+    emailRedirectTo:"https://ashiesha2011-code.github.io/zenith_space_industries/"
   }
 })
 
@@ -186,7 +201,7 @@ document.getElementById("googleLogin").onclick = async () => {
 await supabaseClient.auth.signInWithOAuth({
 provider: "google",
 options: {
-redirectTo: "https://ashiesha2011-code.github.io/zenith_space_industries"
+redirectTo: "https://ashiesha2011-code.github.io/zenith_space_industries/"
 }
 })
 
