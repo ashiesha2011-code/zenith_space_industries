@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenith Space Industries</title>
+<link rel="icon" type="image/png" href="images/favicon2.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">
+    <img src="images/logo.png" class="logo">
+  </a>
+  <ul>
+    <li><a href="missions.html">Missions</a></li>
+    <li><a href="future.html">Future</a></li>
+    <li><a href="technology.html">Technology</a></li>
+    <li><a href="investors.html">Community</a></li>
+  </ul>
+</nav>
+
+<section class="hero fade-in" style="background-image:url('images/hero.jpg')">
+  <div class="overlay">
+    <h1>ZENITH SPACE INDUSTRIES</h1>
+    <p>Redefining Private Space Launch Systems</p>
+  </div>
+</section>
+
+<section class="section fade-in">
+  <h2>Engineering the Future of Orbital Access</h2>
+  <p>Reusable launch vehicles designed for precision missions beyond the Kármán Line.</p>
+</section>
+
+<section class="section fade-in">
+  <h2>Join the community</h2>
+  <p>The ZSI Mission Lab is a collaborative innovation platform where young engineers, designers, and thinkers submit their space exploration concepts.</p>
+  <a href="investors.html" class="invest-btn">Submit Your Project</a>
+</section>
+
+<footer>
+  <p>© 2026 Zenith Space Industries</p>
+  <p class="yt-link">
+    <img src="images/youtube-icon.png" alt="YouTube">
+    <a href="https://youtube.com/@ieshadogra8659" target="_blank">ZSI Mission Logs</a>
+  </p>
+</footer>
+
+<script src="script.js"></script>
+
+<!-- POPUP -->
+<div id="signupPopup" class="popup">
+  <div class="popup-box">
+    <button class="popup-close" id="closePopup">✕</button>
+    <h2>🚀 Join the ZSI Community</h2>
+    <p>Get notified about new missions, results, and future space exploration ideas.</p>
+
+    <!-- STEP 1: Email entry -->
+    <div id="step-email">
+      <input type="email" id="popupEmail" placeholder="Enter your email address">
+      <button id="sendOTPBtn">Join ZSI Community</button>
+      <button type="button" id="googleLogin" class="google-btn">Sign in with Google</button>
+      <p style="font-size:0.8em; opacity:0.7;">Your email will only be used for updates. No spam.</p>
+    </div>
+
+    <!-- STEP 2: OTP verification (hidden initially) -->
+    <div id="step-otp" style="display:none;">
+      <p id="otpHint" style="font-size:0.9em; opacity:0.8;"></p>
+      <input id="popupOTP" type="text" placeholder="Enter the 6-digit OTP">
+      <button id="verifyOTP">Verify OTP</button>
+      <button id="backBtn" style="background:transparent; color:inherit; border:1px solid rgba(255,255,255,0.3); margin-top:8px;">← Back</button>
+    </div>
+
+    <div id="popupMessage"></div>
+  </div>
+</div>
+
+<!-- Supabase v2 (legacy anon key compatible) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+  /* ── CONFIG ── */
+  const SUPABASE_URL = "https://doithmpdnvwcipbirzxw.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvaXRobXBkbnZ3Y2lwYmlyenh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMTAyNDYsImV4cCI6MjA4ODc4NjI0Nn0.nFGXlWicj1ZDKUdKYx4tdyihWKuP8rIxiXNPgajHq1w";
+  const REDIRECT_URL = "https://zenithspace.org/";
+
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  /* ── ELEMENTS ── */
+  const popup        = document.getElementById("signupPopup");
+  const closeBtn     = document.getElementById("closePopup");
+  const emailInput   = document.getElementById("popupEmail");
+  const sendOTPBtn   = document.getElementById("sendOTPBtn");
+  const otpInput     = document.getElementById("popupOTP");
+  const verifyBtn    = document.getElementById("verifyOTP");
+  const backBtn      = document.getElementById("backBtn");
+  const googleBtn    = document.getElementById("googleLogin");
+  const message      = document.getElementById("popupMessage");
+  const stepEmail    = document.getElementById("step-email");
+  const stepOTP      = document.getElementById("step-otp");
+  const otpHint      = document.getElementById("otpHint");
+
+  let currentEmail = "";
+
+  /* ── HELPERS ── */
+  function showMessage(text, isError = false) {
+    message.innerHTML = text;
+    message.style.color = isError ? "#ff6b6b" : "#7effa0";
+  }
+
+  function clearMessage() {
+    message.innerHTML = "";
+  }
+
+  function showStep(step) {
+    stepEmail.style.display = step === "email" ? "block" : "none";
+    stepOTP.style.display   = step === "otp"   ? "block" : "none";
+    clearMessage();
+  }
+
+  async function saveSubscriber(email) {
+    const { error } = await sb
+      .from("subscribers")
+      .upsert([{ email: email }], { onConflict: "email" });
+    if (error) console.error("Subscriber save error:", error.message);
+  }
+
+  function markSignedUp() {
+    localStorage.setItem("zsi_signedup", "true");
+    popup.classList.remove("show");
+  }
+
+  /* ── SHOW POPUP (after 5s, only if not already signed up) ── */
+  if (!localStorage.getItem("zsi_signedup")) {
+    setTimeout(() => popup.classList.add("show"), 5000);
+  }
+
+  /* ── CLOSE ── */
+  closeBtn.onclick = () => popup.classList.remove("show");
+
+  /* ── BACK BUTTON ── */
+  backBtn.onclick = () => {
+    otpInput.value = "";
+    showStep("email");
+  };
+
+  /* ── SEND OTP ── */
+  sendOTPBtn.onclick = async () => {
+    const email = emailInput.value.trim();
+    if (!email || !email.includes("@")) {
+      showMessage("⚠ Please enter a valid email address.", true);
+      return;
+    }
+    currentEmail = email;
+    sendOTPBtn.disabled = true;
+    sendOTPBtn.textContent = "Sending…";
+
+    const { error } = await sb.auth.signInWithOtp({ email: email });
+
+    if (error) {
+      showMessage("⚠ Could not send OTP: " + error.message, true);
+      sendOTPBtn.disabled = false;
+      sendOTPBtn.textContent = "Join ZSI Community";
+      return;
+    }
+
+    otpHint.textContent = `📩 OTP sent to ${email}`;
+    showStep("otp");
+    sendOTPBtn.disabled = false;
+    sendOTPBtn.textContent = "Join ZSI Community";
+  };
+
+  /* ── VERIFY OTP ── */
+  verifyBtn.onclick = async () => {
+    const token = otpInput.value.trim();
+    if (!token) {
+      showMessage("⚠ Please enter the OTP.", true);
+      return;
+    }
+    verifyBtn.disabled = true;
+    verifyBtn.textContent = "Verifying…";
+
+    const { data, error } = await sb.auth.verifyOtp({
+      email: currentEmail,
+      token: token,
+      type: "email"
+    });
+
+    if (error) {
+      showMessage("⚠ Invalid or expired OTP. Please try again.", true);
+      verifyBtn.disabled = false;
+      verifyBtn.textContent = "Verify OTP";
+      return;
+    }
+
+    await saveSubscriber(currentEmail);
+    showMessage("✅ You're in! Welcome to ZSI 🚀");
+    setTimeout(markSignedUp, 1500);
+  };
+
+  /* ── GOOGLE LOGIN ── */
+  googleBtn.onclick = async () => {
+    const { error } = await sb.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: REDIRECT_URL }
+    });
+    if (error) showMessage("⚠ Google sign-in failed: " + error.message, true);
+  };
+
+  /* ── HANDLE RETURNING GOOGLE SESSION ──
+     When Google redirects back to the page, getSession() catches the active
+     session and saves the email to subscribers. onAuthStateChange alone is
+     not reliable on the initial redirect load. */
+  const { data: { session } } = await sb.auth.getSession();
+  if (session && session.user) {
+    await saveSubscriber(session.user.email);
+    markSignedUp();
+  }
+
+  /* ── ALSO LISTEN FOR FUTURE AUTH EVENTS (tab stays open) ── */
+  sb.auth.onAuthStateChange(async (event, session) => {
+    if (event === "SIGNED_IN" && session && session.user) {
+      await saveSubscriber(session.user.email);
+      markSignedUp();
+    }
+  });
+
+});
+</script>
+
+</body>
+</html>
