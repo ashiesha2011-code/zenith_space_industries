@@ -84,55 +84,27 @@ Sign in with Google
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+
+document.addEventListener("DOMContentLoaded", async function(){
 
 const supabaseUrl = "https://doithmpdnvwcipbirzxw.supabase.co"
 const supabaseKey = "sb_publishable_ehSNVy7NVv_JXm2JeJwLCg_eA4_gUNI"
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
-// check if user already logged in
-const { data: { session } } = await supabaseClient.auth.getSession()
 
-if(session){
+/* POPUP ELEMENTS */
 
-const email = session.user.email
-
-// save email to database
-await supabaseClient
-.from("subscribers")
-.upsert([{ email: email }])
-
-localStorage.setItem("zsi_signedup","true")
-
-popup.classList.remove("show")
-
-}
 const popup = document.getElementById("signupPopup")
 const closeBtn = document.getElementById("closePopup")
 const popupForm = document.getElementById("popupForm")
+const popupMessage = document.getElementById("popupMessage")
+const googleBtn = document.getElementById("googleLogin")
 
-/* SHOW POPUP AFTER 5 SECONDS */
+/* SHOW POPUP AFTER 5 SECONDS (IF NOT ALREADY SIGNED UP) */
 
-async function checkSubscriber() {
-
-const { data: { session } } =
-await supabaseClient.auth.getSession()
-
-if(session){
-
-const email = session.user.email
-
-const { data } = await supabaseClient
-.from("subscribers")
-.select("email")
-.eq("email", email)
-
-if(data && data.length > 0){
-return
-}
-
-}
+if(!localStorage.getItem("zsi_signedup")){
 
 setTimeout(()=>{
 popup.classList.add("show")
@@ -140,14 +112,13 @@ popup.classList.add("show")
 
 }
 
-checkSubscriber()
 /* CLOSE POPUP */
 
 closeBtn.onclick = ()=>{
 popup.classList.remove("show")
 }
 
-/* EMAIL OTP LOGIN */
+/* EMAIL MAGIC LINK LOGIN */
 
 popupForm.addEventListener("submit", async function(e){
 
@@ -156,59 +127,52 @@ e.preventDefault()
 const email = document.getElementById("popupEmail").value.trim()
 
 const { error } = await supabaseClient.auth.signInWithOtp({
-  email: email,
-  options: {
-    emailRedirectTo:"https://ashiesha2011-code.github.io/zenith_space_industries/"
-  }
+
+email: email,
+
+options:{
+emailRedirectTo:
+"https://ashiesha2011-code.github.io/zenith_space_industries/"
+}
+
 })
 
 if(error){
-document.getElementById("popupMessage").innerHTML =
+
+popupMessage.innerHTML =
 "⚠ Could not send verification email"
+
 return
+
 }
 
-document.getElementById("popupMessage").innerHTML =
+popupMessage.innerHTML =
 "📧 Check your email for the verification link"
 
 })
-// check if user just logged in via email verification
-supabaseClient.auth.getSession().then(async ({ data }) => {
 
-if(!data.session) return
+/* GOOGLE LOGIN */
 
-const email = data.session.user.email
-
-// check if already saved
-const { data: existing } = await supabaseClient
-.from("subscribers")
-.select("email")
-.eq("email", email)
-
-if(existing.length === 0){
-
-await supabaseClient
-.from("subscribers")
-.upsert([{ email: email }])
-}
-
-// hide popup once subscribed
-localStorage.setItem("zsi_signedup","true")
-
-})
-document.getElementById("googleLogin").onclick = async () => {
+googleBtn.onclick = async () => {
 
 await supabaseClient.auth.signInWithOAuth({
+
 provider: "google",
-options: {
-redirectTo: "https://ashiesha2011-code.github.io/zenith_space_industries/"
+
+options:{
+redirectTo:
+"https://ashiesha2011-code.github.io/zenith_space_industries/"
 }
+
 })
 
 }
-supabaseClient.auth.onAuthStateChange(async (event, session) => {
 
-if(event === "SIGNED_IN"){
+/* AFTER LOGIN (GOOGLE OR EMAIL) */
+
+supabaseClient.auth.onAuthStateChange(async (event, session)=>{
+
+if(event === "SIGNED_IN" && session){
 
 const email = session.user.email
 
@@ -223,7 +187,9 @@ popup.classList.remove("show")
 }
 
 })
+
 })
+
 </script>
 </body>
 </html>
