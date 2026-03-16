@@ -131,12 +131,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   function markSignedUp() {
-    localStorage.setItem("zsi_signedup", "true");
     popup.classList.remove("show");
   }
 
-  /* ── SHOW POPUP (after 5s, only if not already signed up) ── */
-  if (!localStorage.getItem("zsi_signedup")) {
+  /* ── SHOW POPUP (after 5s, only if no active session) ── */
+  const { data: { session: existingSession } } = await sb.auth.getSession();
+  if (!existingSession) {
     setTimeout(() => popup.classList.add("show"), 5000);
   }
 
