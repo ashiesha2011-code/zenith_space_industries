@@ -499,50 +499,22 @@ footer {
 
 /* GOOGLE BUTTON */
 .google-btn {
-  background: white !important;
-  color: #222 !important;
+  background: transparent !important;
+  color: white !important;
   font-weight: 600 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
 .google-btn:hover {
-  background: #f0f0f0 !important;
-  box-shadow: 0 0 10px rgba(52, 211, 99, 0.6),
-              0 0 20px rgba(52, 211, 99, 0.3) !important;
-  border: 1px solid rgba(52, 211, 99, 0.5) !important;
+  background: rgba(52, 211, 99, 0.08) !important;
+  color: white !important;
+  border: 1px solid rgba(52, 211, 99, 0.6) !important;
+  box-shadow: 0 0 12px rgba(52, 211, 99, 0.6),
+              0 0 25px rgba(52, 211, 99, 0.25) !important;
   transform: scale(1.02) !important;
-}
-
-/* EMAIL BUTTON */
-#sendOTPBtn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* OR DIVIDER */
-.or-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 4px 0;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.35);
-}
-
-.or-divider::before,
-.or-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.or-divider span {
-  padding: 0 4px;
 }
 
 /* BACK BUTTON */
