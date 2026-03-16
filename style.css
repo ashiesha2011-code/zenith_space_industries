@@ -499,21 +499,20 @@ footer {
 
 /* GOOGLE BUTTON */
 .google-btn {
-  background: transparent !important;
-  color: white !important;
+  background: white !important;
+  color: #222 !important;
   font-weight: 600 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
 .google-btn:hover {
-  background: rgba(52, 211, 99, 0.08) !important;
+  background: #34d363 !important;
   color: white !important;
-  border: 1px solid rgba(52, 211, 99, 0.6) !important;
-  box-shadow: 0 0 12px rgba(52, 211, 99, 0.6),
-              0 0 25px rgba(52, 211, 99, 0.25) !important;
+  border: 1px solid #34d363 !important;
+  box-shadow: 0 0 12px rgba(52, 211, 99, 0.7),
+              0 0 25px rgba(52, 211, 99, 0.35) !important;
   transform: scale(1.02) !important;
 }
 
