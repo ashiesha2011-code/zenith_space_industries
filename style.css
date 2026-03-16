@@ -361,9 +361,8 @@ footer {
 
 /* POPUP CARD */
 .popup-box {
-  position: relative;
   background: linear-gradient(145deg, #04152e, #06214b);
-  padding: 45px 40px 35px;
+  padding: 35px 40px 35px;
   border-radius: 18px;
   border: 1px solid #00e5ff;
   text-align: center;
@@ -375,41 +374,63 @@ footer {
   transform: scale(0.9);
   transition: transform 0.4s ease;
   font-family: 'Orbitron', sans-serif;
+  position: relative;
 }
 
 .popup.show .popup-box {
   transform: scale(1);
 }
 
-/* CLOSE BUTTON */
+/* CLOSE BUTTON — floats above the box, top-right */
 .popup-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
+  position: fixed;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 1px solid rgba(0, 229, 255, 0.4);
+  background: #04152e;
+  border: 1px solid rgba(0, 229, 255, 0.5);
   border-radius: 6px;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 0;
   line-height: 1;
-  z-index: 10;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  /* JS will position this on show */
 }
 
-.popup-close:hover {
+/* Simpler approach — just put it inside popup-box using absolute */
+.popup-box .popup-close,
+#closePopup {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  width: 28px !important;
+  height: 28px !important;
+  transform: none !important;
+  background: #04152e !important;
+  border: 1px solid rgba(0, 229, 255, 0.5) !important;
+  border-radius: 6px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  z-index: 10000 !important;
+  transition: all 0.2s ease !important;
+}
+
+#closePopup:hover {
   color: #00e5ff !important;
   border-color: #00e5ff !important;
-  background: rgba(0, 229, 255, 0.08) !important;
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.5),
-              0 0 20px rgba(0, 229, 255, 0.2) !important;
-  transform: none !important;
+  background: rgba(0, 229, 255, 0.1) !important;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.5) !important;
 }
 
 /* TITLE */
@@ -485,10 +506,10 @@ footer {
 
 .google-btn:hover {
   background: #f0f0f0 !important;
+  transform: scale(1.02) !important;
 }
 
 /* BACK BUTTON */
-.back-btn,
 #backBtn {
   background: transparent !important;
   color: #00d4ff !important;
@@ -497,8 +518,7 @@ footer {
   font-weight: 500 !important;
 }
 
-#backBtn:hover,
-.back-btn:hover {
+#backBtn:hover {
   background: rgba(0, 212, 255, 0.1) !important;
   transform: none !important;
 }
