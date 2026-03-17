@@ -13,7 +13,7 @@
 
 <nav>
   <a href="index.html">
-    <img src="images/logo.png" class="logo">
+    <img src="images/favicon2.png" class="logo">
   </a>
   <ul>
     <li><a href="missions.html">Missions</a></li>
@@ -25,7 +25,7 @@
 
 <section class="hero fade-in" style="background-image:url('images/hero.jpg')">
   <div class="overlay">
-    <h1>ZENITH SPACE INDUSTRIES</h1>
+    <h1>ZENITH SPACE</h1>
     <p>Redefining Private Space Launch Systems</p>
   </div>
 </section>
@@ -37,15 +37,15 @@
 
 <section class="section fade-in">
   <h2>Join the community</h2>
-  <p>The ZSI Mission Lab is a collaborative innovation platform where young engineers, designers, and thinkers submit their space exploration concepts.</p>
+  <p>The Zenith Space Mission Lab is a collaborative innovation platform where young engineers, designers, and thinkers submit their space exploration concepts.</p>
   <a href="investors.html" class="invest-btn">Submit Your Project</a>
 </section>
 
 <footer>
-  <p>© 2026 Zenith Space Industries</p>
+  <p>© 2026 Zenith Space</p>
   <p class="yt-link">
     <img src="images/youtube-icon.png" alt="YouTube">
-    <a href="https://youtube.com/@ieshadogra8659" target="_blank">ZSI Mission Logs</a>
+    <a href="https://youtube.com/@ieshadogra8659" target="_blank">Zenith Space Mission Logs</a>
   </p>
 </footer>
 
@@ -55,7 +55,7 @@
 <div id="signupPopup" class="popup">
   <div class="popup-box">
     <button class="popup-close" id="closePopup">✕</button>
-    <h2>🚀 Join the ZSI Community</h2>
+    <h2>🚀 Join the Zenith Community</h2>
     <p>Get notified about new missions, results, and future space exploration ideas.</p>
 
     <!-- STEP 1: Email entry -->
@@ -178,14 +178,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (error) {
       showMessage("⚠ Could not send OTP: " + error.message, true);
       sendOTPBtn.disabled = false;
-      sendOTPBtn.textContent = "Join ZSI Community";
+      sendOTPBtn.textContent = "Join Zenith Community";
       return;
     }
 
     otpHint.textContent = `📩 OTP sent to ${email}`;
     showStep("otp");
     sendOTPBtn.disabled = false;
-    sendOTPBtn.textContent = "Join ZSI Community";
+    sendOTPBtn.textContent = "Join Zenith Community";
   };
 
   /* ── VERIFY OTP ── */
