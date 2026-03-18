@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zenith Space Mission Lab</title>
+
+<link rel="icon" type="image/png" href="images/favicon2.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0;
+    font-family:'Orbitron', sans-serif;
+    background:linear-gradient(to bottom,#020617,#071a3a);
+    color:white;
+}
+
+nav {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    background:rgba(0,0,20,0.6);
+    backdrop-filter:blur(12px);
+}
+
+.logo img {
+    height:65px;
+}
+
+nav a {
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    transition:0.3s;
+}
+
+nav a:hover {
+    color:cyan;
+}
+
+.container {
+    max-width:900px;
+    margin:80px auto;
+    padding:20px;
+}
+
+h1 {
+    text-align:center;
+    font-size:42px;
+}
+
+.mission-box, .results-box {
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:20px;
+    border:1px solid rgba(0,255,255,0.2);
+    margin-bottom:40px;
+}
+
+.mission-box h2, .results-box h2 {
+    color:cyan;
+}
+
+.countdown {
+    font-size:22px;
+    text-align:center;
+    margin:20px 0;
+    color:cyan;
+}
+
+.submission-counter {
+    text-align:center;
+    font-size:20px;
+    color:cyan;
+    margin-bottom:30px;
+}
+
+form {
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:20px;
+    border:1px solid rgba(0,255,255,0.2);
+}
+
+input, textarea {
+    padding:12px;
+    border-radius:8px;
+    border:none;
+    outline:none;
+    font-family:inherit;
+}
+
+button {
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:cyan;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover {
+    background:white;
+}
+
+#formMessage {
+    margin-top:15px;
+    font-weight:bold;
+    color:cyan;
+}
+
+.disabled {
+    opacity:0.5;
+    pointer-events:none;
+}
+
+.hidden {
+    display:none;
+}
+.yt-link {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.yt-link img {
+  width: 20px;
+  height: 20px;
+}
+
+.yt-link a {
+  color: #00f2ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.yt-link a:hover {
+  text-decoration: underline;
+}
+.results-box a {
+  color: cyan;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.results-box a:hover {
+  text-decoration: underline;
+}
+.file-preview{
+    margin-top:10px;
+    padding:18px;
+    border:2px solid #00ff9d;
+    border-radius:12px;
+    background:rgba(0,255,140,0.08);
+    color:#00ff9d;
+    font-size:14px;
+    cursor:pointer;
+    transition:0.3s;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:95%;
+}
+.file-preview:hover{
+    box-shadow:0 0 18px rgba(0,255,140,0.8);
+    transform:scale(1.02);
+}
+
+.file-selected{
+    border:2px solid #00ff9d;
+    background:rgba(0,255,140,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        <a href="index.html">
+            <img src="images/logo2.png">
+        </a>
+    </div>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="future.html">Future</a>
+        <a href="missions.html">Missions</a>
+    </div>
+</nav>
+
+<div class="container">
+
+<h1>Join the Zenith Space Mission Lab</h1>
+
+<div class="mission-box">
+    <h2>Zenith Space Mission Cycle 01</h2>
+    <p><strong>Theme:</strong> Lunar Autonomous Exploration Rover</p>
+    <p><strong>Submission Window:</strong> 14 Days</p>
+
+    <h3>How To Submit</h3>
+    <p>
+        Upload your presentation file directly (PDF / PPT / DOC up to 25MB)
+    </p>
+
+    <h3>Evaluation Criteria</h3>
+    <ul>
+        <li>Innovation</li>
+        <li>Technical Realism</li>
+        <li>Clarity of Explanation</li>
+        <li>Presentation Quality</li>
+    </ul>
+<p><strong>
+You do not need a perfect or fully engineered solution.
+Simple concept ideas and early prototypes are welcome.
+</p>
+<p>
+Creativity and original thinking are valued more than technical perfection.
+</strong>
+</p>
+</div>
+<div class="countdown" id="countdown"></div>
+
+<div class="submission-counter" id="submissionCounter">
+    🚀 Total Submissions This Cycle: 0
+</div>
+
+<h2>Submit Your Project</h2>
+
+<form id="zsiForm">
+
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="number" name="age" placeholder="Age" required>
+    <input type="text" name="nationality" placeholder="Nationality" required>
+    <input type="text" name="project_title" placeholder="Project Title" required>
+    <input type="text" name="contact" placeholder="Email or Phone Number" required>
+    <input type="file" id="projectFile" required style="display:none;">
+
+<div id="filePreview" class="file-preview">
+📁 Click to upload your project file
+</div>
+    <button type="submit">Submit Mission</button>
+    <div id="formMessage"></div>
+
+</form>
+
+<div id="resultsSection" class="results-box hidden">
+
+<h2>🚀 Mission Cycle 01 Results</h2>
+
+<p>
+🥇 <strong>First Place:</strong>
+<a id="winner1" href="#" target="_blank">To Be Announced</a>
+</p>
+
+<p>
+🥈 <strong>Second Place:</strong>
+<a id="winner2" href="#" target="_blank">To Be Announced</a>
+</p>
+
+<p>
+🥉 <strong>Third Place:</strong>
+<a id="winner3" href="#" target="_blank">To Be Announced</a>
+</p>
+
+<p style="margin-top:20px;">
+Congratulations to all contributors. ZSI Hall of Fame begins from the next mission cycle.
+</p>
+
+</div>
+
+</div>
+<footer>
+  <p>© 2026 Zenith Space</p>
+
+  <p class="yt-link">
+    <img src="images/youtube-icon.png" alt="YouTube">
+    <a href="https://youtube.com/@ieshadogra8659" target="_blank">
+      Zenith Space Mission Logs
+    </a>
+  </p>
+
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const supabaseUrl = "https://doithmpdnvwcipbirzxw.supabase.co"
+const supabaseKey = "sb_publishable_ehSNVy7NVv_JXm2JeJwLCg_eA4_gUNI"
+
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
+    const deadline = new Date("March 20, 2026 23:59:59").getTime();
+
+    const form = document.getElementById("zsiForm");
+    const message = document.getElementById("formMessage");
+    const countdownEl = document.getElementById("countdown");
+    const resultsSection = document.getElementById("resultsSection");
+    const counterElement = document.getElementById("submissionCounter");
+
+async function loadSubmissionCount(){
+
+const { data, error } = await supabaseClient
+.from("submissions")
+.select("id")
+
+if(error) return
+
+counterElement.innerHTML =
+"🚀 Total Submissions This Cycle: <strong>" + data.length + "</strong>"
+
+}
+
+loadSubmissionCount()
+
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = deadline - now;
+
+        if (distance < 0) {
+            clearInterval(timer);
+            countdownEl.innerHTML = "🚀 Submissions Closed — Results Announced";
+            form.classList.add("disabled");
+            resultsSection.classList.remove("hidden");
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownEl.innerHTML =
+            "⏳ Submission Closes In: " +
+            days + "d " +
+            hours + "h " +
+            minutes + "m " +
+            seconds + "s";
+
+    }, 1000);
+
+    form.addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+        message.innerHTML = "⏳ Submitting...";
+
+        const formData = new FormData(form);
+
+        try {
+
+const name = formData.get("name")
+const age = formData.get("age")
+const nationality = formData.get("nationality")
+const project_title = formData.get("project_title")
+const contact = formData.get("contact")
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const phonePattern = /^[0-9]{7,15}$/
+
+if(!emailPattern.test(contact) && !phonePattern.test(contact)){
+message.innerHTML = "⚠ Enter a valid email or phone number."
+return
+}
+const file = document.getElementById("projectFile").files[0]
+  if(!file){
+message.innerHTML = "⚠ Please select a file."
+return
+}
+// FILE SIZE PROTECTION
+if(file.size > 25 * 1024 * 1024){
+message.innerHTML = "⚠ File too large (max 25MB)"
+return
+}
+
+const fileName = Date.now() + "-" + file.name
+// Upload file to Supabase storage
+const { error: uploadError } = await supabaseClient.storage
+.from("mission-files")
+.upload(fileName, file)
+
+if(uploadError){
+    message.innerHTML = "⚠ File upload failed."
+    return
+}
+
+// Get public file URL
+const { data } = supabaseClient.storage
+.from("mission-files")
+.getPublicUrl(fileName)
+
+const fileUrl = data.publicUrl
+
+// Save submission to database
+const { error } = await supabaseClient
+.from("submissions")
+.insert([{
+    name,
+    age,
+    nationality,
+    project_title,
+    contact,
+    file_url:fileUrl
+}])
+if(error){
+    message.innerHTML = "⚠ Submission failed."
+    return
+}
+
+message.innerHTML = "🚀 Mission Submitted Successfully!"
+form.reset()
+
+loadSubmissionCount()
+        } catch (error) {
+            message.innerHTML = "⚠ Network error. Try again.";
+        }
+
+    });
+const fileInput = document.getElementById("projectFile")
+const previewBox = document.getElementById("filePreview")
+
+previewBox.addEventListener("click", function(){
+fileInput.click()
+})
+
+fileInput.addEventListener("change", () => {
+
+const file = fileInput.files[0]
+
+if(!file) return
+
+previewBox.classList.add("file-selected")
+
+const size = (file.size/1024/1024).toFixed(2)
+
+previewBox.innerHTML =
+"📄 " + file.name +
+"<br><span style='font-size:12px;color:#9cffc7'>" +
+size + " MB • Ready for upload</span>"
+
+})
+});
+async function loadWinners(){
+
+const { data } = await supabaseClient
+.from("submissions")
+.select("*")
+.eq("is_winner", true)
+.order("rank", { ascending: true })
+
+if(!data || data.length === 0) return
+
+document.getElementById("resultsSection").classList.remove("hidden")
+
+if(data[0]){
+document.getElementById("winner1").innerText = data[0].project_title
+document.getElementById("winner1").href = data[0].file_url
+}
+
+if(data[1]){
+document.getElementById("winner2").innerText = data[1].project_title
+document.getElementById("winner2").href = data[1].file_url
+}
+
+if(data[2]){
+document.getElementById("winner3").innerText = data[2].project_title
+document.getElementById("winner3").href = data[2].file_url
+}
+
+}
+
+loadWinners()
+</script>
+
+</body>
+</html>
