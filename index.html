@@ -7,6 +7,91 @@
 <link rel="icon" type="image/png" href="images/favicon2.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+/* ── FOUNDER'S SECTION ── */
+#founders-section {
+  border-top: 1px solid rgba(0, 210, 255, 0.12);
+  border-bottom: 1px solid rgba(0, 210, 255, 0.12);
+  background: rgba(0, 210, 255, 0.02);
+}
+
+#founders-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+#founders-text {
+  flex: 1;
+  text-align: left;
+}
+
+#founders-text p {
+  font-size: 1em;
+  line-height: 1.95;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 16px;
+}
+
+#founders-sig {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.78em;
+  letter-spacing: 2px;
+  color: #00d2ff !important;
+  margin-top: 24px;
+  opacity: 1 !important;
+}
+
+#founders-video {
+  flex-shrink: 0;
+  width: 260px;
+  text-align: center;
+}
+
+#founders-video-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7em;
+  letter-spacing: 2px;
+  color: #00d2ff;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+#founders-video-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 177.78%; /* 9:16 for Shorts */
+  border: 1px solid rgba(0, 210, 255, 0.28);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 28px rgba(0, 210, 255, 0.08);
+}
+
+#founders-video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* Stack on mobile */
+@media (max-width: 700px) {
+  #founders-layout {
+    flex-direction: column;
+    gap: 32px;
+  }
+  #founders-text {
+    text-align: center;
+  }
+  #founders-video {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -33,6 +118,39 @@
 <section class="section fade-in">
   <h2>Engineering the Future of Orbital Access</h2>
   <p>Reusable launch vehicles designed for precision missions beyond the Kármán Line.</p>
+</section>
+
+<section class="section fade-in" id="founders-section">
+  <h2>A Message from the Founder</h2>
+
+  <div id="founders-layout">
+
+    <div id="founders-text">
+      <p>
+        My name is Uthkarsh Bhardwaj, and I'm 14 years old. I founded Zenith Space because I believe humanity's greatest chapter hasn't been written yet — and it will be written in the stars.
+      </p>
+      <p>
+        Zenith Space isn't just about one mission or one structure. It's a full roadmap — from reusable launch vehicles crossing the Kármán Line today, to Habitat One replacing the ISS, to permanent bases on the Moon and Mars, to AstraRing, a 35km rotating megastructure with artificial gravity, and ultimately to Project Eventide — antimatter propulsion toward Proxima Centauri.
+      </p>
+      <p>
+        Every detail has been designed with purpose. Every mission builds on the last. This is a long game — and Day One starts now.
+      </p>
+      <p id="founders-sig">— Uthkarsh Bhardwaj, Founder &amp; CEO, Zenith Space</p>
+    </div>
+
+    <div id="founders-video">
+      <p id="founders-video-label">Watch Our First Video</p>
+      <div id="founders-video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/lBcV-F7gZhc"
+          title="Zenith Space — First Mission"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <section class="section fade-in">
