@@ -255,26 +255,44 @@ Creativity and original thinking are valued more than technical perfection.
 
 <div id="resultsSection" class="results-box hidden">
 
-<h2>🚀 Mission Cycle 01 Results</h2>
+  <!-- State 1: Zero submissions -->
+  <div id="stateZero" style="display:none;">
+    <h2>🌌 Mission Cycle 01 — Closed</h2>
+    <p style="opacity:0.85;line-height:1.9;">
+      Mission Cycle 01 has now closed. Unfortunately, no submissions were received for this cycle —
+      but every great program starts somewhere, and this is just the beginning.
+    </p>
+    <p style="margin-top:14px;opacity:0.75;line-height:1.9;">
+      Mission Cycle 02 is on the horizon with a brand new theme and an improved submission experience.
+      Join the community below to be the first to know when it opens.
+    </p>
+  </div>
 
-<p>
-🥇 <strong>First Place:</strong>
-<a id="winner1" href="#" target="_blank">To Be Announced</a>
-</p>
+  <!-- State 2: Submissions received, under review -->
+  <div id="stateReview" style="display:none;">
+    <h2>🚀 Mission Cycle 01 — Under Review</h2>
+    <p style="opacity:0.85;line-height:1.9;">
+      Submissions have been received and are currently under evaluation.
+      Winners will be announced here once judging is complete.
+    </p>
+    <p style="margin-top:14px;color:cyan;font-size:14px;">
+      Check back soon — results will appear on this page automatically.
+    </p>
+  </div>
 
-<p>
-🥈 <strong>Second Place:</strong>
-<a id="winner2" href="#" target="_blank">To Be Announced</a>
-</p>
-
-<p>
-🥉 <strong>Third Place:</strong>
-<a id="winner3" href="#" target="_blank">To Be Announced</a>
-</p>
-
-<p style="margin-top:20px;">
-Congratulations to all contributors. ZSI Hall of Fame begins from the next mission cycle.
-</p>
+  <!-- State 3: Winners announced -->
+  <div id="stateWinners" style="display:none;">
+    <h2>🏆 Mission Cycle 01 — Results</h2>
+    <p style="opacity:0.75;margin-bottom:24px;line-height:1.8;">
+      Judging is complete. Congratulations to our top submissions!
+    </p>
+    <p>🥇 <strong>First Place:</strong> <a id="winner1" href="#" target="_blank">—</a></p>
+    <p>🥈 <strong>Second Place:</strong> <a id="winner2" href="#" target="_blank">—</a></p>
+    <p>🥉 <strong>Third Place:</strong> <a id="winner3" href="#" target="_blank">—</a></p>
+    <p style="margin-top:20px;opacity:0.65;font-size:13px;">
+      ZSI Hall of Fame begins from Mission Cycle 02.
+    </p>
+  </div>
 
 </div>
 
@@ -297,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvaXRobXBkbnZ3Y2lwYmlyenh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMTAyNDYsImV4cCI6MjA4ODc4NjI0Nn0.nFGXlWicj1ZDKUdKYx4tdyihWKuP8rIxiXNPgajHq1w"
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
-    const deadline = new Date("March 20, 2026 23:59:59").getTime();
+    const deadline = new Date("March 20, 2026 00:00:00").getTime();
 
     const form = document.getElementById("zsiForm");
     const message = document.getElementById("formMessage");
@@ -305,20 +323,73 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
     const resultsSection = document.getElementById("resultsSection");
     const counterElement = document.getElementById("submissionCounter");
 
-async function loadSubmissionCount(){
+// ── SMART RESULTS LOGIC ──
+// Checks submission count AND winner status, shows correct state
+async function updateResultsState() {
 
-const { data, error } = await supabaseClient
-.from("submissions")
-.select("id")
+  // 1. Get total submission count
+  const { data: allSubs, error: countErr } = await supabaseClient
+    .from("submissions")
+    .select("id");
 
-if(error) return
+  const total = (allSubs && !countErr) ? allSubs.length : 0;
 
-counterElement.innerHTML =
-"🚀 Total Submissions This Cycle: <strong>" + data.length + "</strong>"
+  // Update submission counter
+  counterElement.innerHTML =
+    "🚀 Total Submissions This Cycle: <strong>" + total + "</strong>";
 
+  // 2. Get winners (is_winner = true)
+  const { data: winners } = await supabaseClient
+    .from("submissions")
+    .select("*")
+    .eq("is_winner", true)
+    .order("rank", { ascending: true });
+
+  const winnerCount = (winners) ? winners.length : 0;
+
+  // 3. Decide which state to show
+  const resultsSection = document.getElementById("resultsSection");
+  const stateZero    = document.getElementById("stateZero");
+  const stateReview  = document.getElementById("stateReview");
+  const stateWinners = document.getElementById("stateWinners");
+
+  // Only show results section if submissions are closed
+  const now = new Date().getTime();
+  const deadline = new Date("March 20, 2026 00:00:00").getTime();
+  if (now < deadline) return; // don't show results while open
+
+  resultsSection.classList.remove("hidden");
+  stateZero.style.display    = "none";
+  stateReview.style.display  = "none";
+  stateWinners.style.display = "none";
+
+  if (total === 0) {
+    // No submissions at all
+    stateZero.style.display = "block";
+
+  } else if (winnerCount >= 3) {
+    // Winners have been marked in Supabase — show them
+    stateWinners.style.display = "block";
+    if (winners[0]) {
+      document.getElementById("winner1").innerText = winners[0].project_title;
+      document.getElementById("winner1").href = winners[0].file_url;
+    }
+    if (winners[1]) {
+      document.getElementById("winner2").innerText = winners[1].project_title;
+      document.getElementById("winner2").href = winners[1].file_url;
+    }
+    if (winners[2]) {
+      document.getElementById("winner3").innerText = winners[2].project_title;
+      document.getElementById("winner3").href = winners[2].file_url;
+    }
+
+  } else {
+    // Submissions exist but winners not yet chosen
+    stateReview.style.display = "block";
+  }
 }
 
-loadSubmissionCount()
+updateResultsState();
 
     const timer = setInterval(function() {
         const now = new Date().getTime();
@@ -326,9 +397,9 @@ loadSubmissionCount()
 
         if (distance < 0) {
             clearInterval(timer);
-            countdownEl.innerHTML = "🚀 Submissions Closed — Results Announced";
+            countdownEl.innerHTML = "🚀 Submissions Closed";
             form.classList.add("disabled");
-            resultsSection.classList.remove("hidden");
+            updateResultsState();
             return;
         }
 
@@ -414,13 +485,14 @@ if(error){
 
 message.innerHTML = "🚀 Mission Submitted Successfully!"
 form.reset()
+updateResultsState();
 
-loadSubmissionCount()
-        } catch (error) {
+        } catch (err) {
             message.innerHTML = "⚠ Network error. Try again.";
         }
 
     });
+
 const fileInput = document.getElementById("projectFile")
 const previewBox = document.getElementById("filePreview")
 
@@ -445,36 +517,7 @@ size + " MB • Ready for upload</span>"
 
 })
 });
-async function loadWinners(){
 
-const { data } = await supabaseClient
-.from("submissions")
-.select("*")
-.eq("is_winner", true)
-.order("rank", { ascending: true })
-
-if(!data || data.length === 0) return
-
-document.getElementById("resultsSection").classList.remove("hidden")
-
-if(data[0]){
-document.getElementById("winner1").innerText = data[0].project_title
-document.getElementById("winner1").href = data[0].file_url
-}
-
-if(data[1]){
-document.getElementById("winner2").innerText = data[1].project_title
-document.getElementById("winner2").href = data[1].file_url
-}
-
-if(data[2]){
-document.getElementById("winner3").innerText = data[2].project_title
-document.getElementById("winner3").href = data[2].file_url
-}
-
-}
-
-loadWinners()
 </script>
 
 </body>
