@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download | Zenith Space</title>
+    <meta name="description" content="Download the Zenith Space desktop application for macOS and Windows.">
+    <link rel="icon" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Michroma&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0e27;
+            color: #e0e0e0;
+            font-family: 'Michroma', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 3rem;
+            border-bottom: 1px solid rgba(0, 230, 242, 0.1);
+            position: sticky;
+            top: 0;
+            background-color: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-link img {
+            height: 2.5rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-link img:hover {
+            opacity: 1;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .main-nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .main-nav a:hover {
+            color: #00e6f2;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* DOWNLOAD HERO */
+        .download-hero {
+            padding: 8rem 0 6rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .kicker {
+            color: #00e6f2;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .download-hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .download-hero h1 span {
+            color: #00e6f2;
+            display: block;
+        }
+
+        .hero-description {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            letter-spacing: 0.03em;
+            margin-bottom: 0;
+        }
+
+        /* PLATFORMS SECTION */
+        .platforms {
+            padding: 6rem 0;
+            border-top: 1px solid rgba(0, 230, 242, 0.1);
+            border-bottom: 1px solid rgba(0, 230, 242, 0.1);
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-intro h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin: 1.5rem 0;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .section-intro p:last-child {
+            color: #a0a0a0;
+            font-size: 1rem;
+        }
+
+        /* PLATFORM GRID */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 0;
+        }
+
+        .platform-card {
+            border: 1px solid rgba(0, 230, 242, 0.2);
+            padding: 3rem;
+            background-color: rgba(0, 230, 242, 0.02);
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .platform-card:hover {
+            border-color: rgba(0, 230, 242, 0.5);
+            background-color: rgba(0, 230, 242, 0.06);
+            box-shadow: 0 0 20px rgba(0, 230, 242, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .card-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(0, 230, 242, 0.2);
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+        }
+
+        .platform-icon {
+            width: 6rem;
+            height: 6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 3rem;
+        }
+
+        .platform-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .platform-type {
+            color: #00e6f2;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .platform-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+        }
+
+        .card-description {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .metadata {
+            display: flex;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            font-size: 0.8rem;
+            color: #707070;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .download-link {
+            display: inline-block;
+            color: #00e6f2;
+            text-decoration: none;
+            border: 1px solid #00e6f2;
+            padding: 1.2rem 2.5rem;
+            margin: 2rem 0 1.5rem 0;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: transparent;
+            align-self: flex-start;
+        }
+
+        .download-link:hover {
+            background-color: rgba(0, 230, 242, 0.15);
+            box-shadow: 0 0 15px rgba(0, 230, 242, 0.3);
+        }
+
+        .download-link:active {
+            transform: scale(0.98);
+        }
+
+        .download-link span {
+            margin-left: 0.5rem;
+        }
+
+        .install-note {
+            color: #707070;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* MISSION SECTION */
+        .mission {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .mission h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .mission h2 span {
+            color: #00e6f2;
+            display: block;
+        }
+
+        .mission > p:last-child {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            letter-spacing: 0.03em;
+        }
+
+        /* FOOTER */
+        .site-footer {
+            border-top: 1px solid rgba(0, 230, 242, 0.1);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #707070;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 1.5rem;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .main-nav {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            main {
+                padding: 0 1.5rem;
+            }
+
+            .download-hero {
+                padding: 4rem 0 3rem;
+            }
+
+            .download-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .platform-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .platform-icon {
+                width: 5rem;
+                height: 5rem;
+                font-size: 2.5rem;
+            }
+
+            .section-intro h2 {
+                font-size: 1.8rem;
+            }
+
+            .mission h2 {
+                font-size: 2rem;
+            }
+
+            .site-footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <a href="index.html" class="logo-link" aria-label="Zenith Space home">
+            <img src="assets/logo.png" alt="Zenith Space">
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="missions.html">Missions</a>
+            <a href="future.html">Future</a>
+            <a href="technology.html">Technology</a>
+            <a href="community.html">Community</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="download-hero">
+            <div class="hero-content">
+                <p class="kicker">ZENITH SPACE · DESKTOP</p>
+                <h1>TAKE ZENITH<br><span>WITH YOU.</span></h1>
+                <p class="hero-description">
+                    The Zenith Space experience, now available directly on your desktop.
+                </p>
+            </div>
+        </section>
+
+        <section class="platforms">
+            <div class="section-intro">
+                <p class="kicker">DOWNLOAD</p>
+                <h2>Choose your platform.</h2>
+                <p>Official desktop releases from Zenith Space.</p>
+            </div>
+
+            <div class="platform-grid">
+                <article class="platform-card">
+                    <div class="card-number">01</div>
+                    <div class="platform-icon">
+                        <!-- Apple Logo SVG -->
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="color: #e0e0e0;">
+                            <path d="M17.05 13.5c-.91 0-1.82.55-2.25 1.51.5.5.82 1.24.82 2.02 0 2.05-1.86 3.71-4.15 3.71-1.62 0-3.04-.9-3.75-2.23-.33.09-.68.14-1.04.14-2.05 0-3.71-1.66-3.71-3.71 0-.35.05-.7.14-1.04C2.9 12.04 2 10.62 2 8.99 2 6.94 3.66 5.28 5.71 5.28c.35 0 .7.05 1.04.14.71-1.33 2.13-2.23 3.75-2.23 2.29 0 4.15 1.66 4.15 3.71 0 .78-.32 1.52-.82 2.02.43.96 1.34 1.51 2.25 1.51 2.05 0 3.71 1.66 3.71 3.71 0 2.05-1.66 3.71-3.71 3.71z"/>
+                        </svg>
+                    </div>
+                    <p class="platform-type">DESKTOP APPLICATION</p>
+                    <h3>macOS</h3>
+                    <p class="card-description">
+                        Install Zenith Space on your Mac using the official disk image.
+                    </p>
+
+                    <div class="metadata">
+                        <span>DMG</span>
+                        <span>VERSION 1.0</span>
+                    </div>
+
+                    <a class="download-link" href="downloads/Zenithspace_mac_installer.dmg" download>
+                        DOWNLOAD FOR MAC <span>↗</span>
+                    </a>
+
+                    <p class="install-note">
+                        Open the downloaded DMG and move the application to Applications.
+                    </p>
+                </article>
+
+                <article class="platform-card">
+                    <div class="card-number">02</div>
+                    <div class="platform-icon">
+                        <!-- Windows Logo SVG -->
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="color: #e0e0e0;">
+                            <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
+                        </svg>
+                    </div>
+                    <p class="platform-type">DESKTOP APPLICATION</p>
+                    <h3>Windows</h3>
+                    <p class="card-description">
+                        Download the Zenith Space desktop package for Windows.
+                    </p>
+
+                    <div class="metadata">
+                        <span>ZIP</span>
+                        <span>VERSION 1.0</span>
+                    </div>
+
+                    <a class="download-link" href="downloads/Zenith Space-win32-x64.zip" download>
+                        DOWNLOAD FOR WINDOWS <span>↗</span>
+                    </a>
+
+                    <p class="install-note">
+                        Extract the downloaded ZIP before launching the application.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="mission">
+            <p class="kicker">ZENITH SPACE</p>
+            <h2>BEYOND THE<br><span>HORIZON.</span></h2>
+            <p>One platform. One mission.</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span>ZENITH SPACE</span>
+        <span>© 2026</span>
+    </footer>
+</body>
+</html>
