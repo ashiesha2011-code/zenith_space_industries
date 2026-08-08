@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads</title>
+    <meta name="description" content="Download the Zenith Space desktop application for macOS and Windows.">
+    <link rel="icon" type="image/png" href="images/favicon2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0e27;
+            color: #e0e0e0;
+            font-family: 'Orbitron', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* HEADER / NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 3rem;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.12);
+            background-color: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            height: 2.5rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        nav a:hover {
+            color: rgba(0, 210, 255, 1);
+        }
+
+        /* MAIN CONTENT */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.12);
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            color: rgba(0, 210, 255, 1);
+        }
+
+        .hero p {
+            color: #a0a0a0;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        /* SECTION */
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.12);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .section p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 900px;
+        }
+
+        /* PLATFORM GRID */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .platform-card {
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            padding: 2.5rem;
+            background-color: rgba(0, 210, 255, 0.02);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .platform-card:hover {
+            border-color: rgba(0, 210, 255, 0.4);
+            background-color: rgba(0, 210, 255, 0.06);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.08);
+        }
+
+        .platform-icon {
+            width: 5rem;
+            height: 5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .platform-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .platform-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .card-description {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .metadata {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            font-size: 0.75rem;
+            color: #707070;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .download-link {
+            display: inline-block;
+            color: rgba(0, 210, 255, 1);
+            text-decoration: none;
+            border: 1px solid rgba(0, 210, 255, 1);
+            padding: 1rem 2rem;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: transparent;
+            align-self: flex-start;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .download-link:hover {
+            background-color: rgba(0, 210, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .download-link span {
+            margin-left: 0.5rem;
+        }
+
+        .install-note {
+            color: #707070;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: #707070;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            border-top: 1px solid rgba(0, 210, 255, 0.12);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .platform-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .platform-icon {
+                width: 4rem;
+                height: 4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">
+            <img src="images/logo2.png" class="logo">
+        </a>
+        <ul>
+            <li><a href="missions.html">Missions</a></li>
+            <li><a href="future.html">Future</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="investors.html">Community</a></li>
+            <li><a href="download.html">Downloads</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>TAKE ZENITH<br><span>WITH YOU.</span></h1>
+            <p>The Zenith Space experience, now available directly on your desktop.</p>
+        </section>
+
+        <section class="section">
+            <h2>Choose your platform.</h2>
+            <p>Official desktop releases from Zenith Space.</p>
+
+            <div class="platform-grid">
+                <article class="platform-card">
+                    <div class="platform-icon">
+                        <img src="images/apple-logo.png" alt="Apple">
+                    </div>
+                    <h3>macOS</h3>
+                    <p class="card-description">
+                        Install Zenith Space on your Mac using the official disk image.
+                    </p>
+
+                    <div class="metadata">
+                        <span>DMG</span>
+                        <span>VERSION 1.0</span>
+                    </div>
+
+                    <a class="download-link" href="https://github.com/ashiesha2011-code/zenith_space_industries/releases/download/v1.0/Zenithspace_mac_installer.dmg">
+                        DOWNLOAD FOR MAC <span>↗</span>
+                    </a>
+
+                    <p class="install-note">
+                        Open the downloaded DMG and move the application to Applications.
+                    </p>
+                </article>
+
+                <article class="platform-card">
+                    <div class="platform-icon">
+                        <img src="images/Windows-logo.png" alt="Windows">
+                    </div>
+                    <h3>Windows</h3>
+                    <p class="card-description">
+                        Download the Zenith Space desktop package for Windows.
+                    </p>
+
+                    <div class="metadata">
+                        <span>ZIP</span>
+                        <span>VERSION 1.0</span>
+                    </div>
+
+                    <a class="download-link" href="https://github.com/ashiesha2011-code/zenith_space_industries/releases/download/v1.0/Zenith.Space-win32-x64.zip">
+                        DOWNLOAD FOR WINDOWS <span>↗</span>
+                    </a>
+
+                    <p class="install-note">
+                        Extract the downloaded ZIP before launching the application.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>BEYOND THE<br><span style="color: rgba(0, 210, 255, 1);">HORIZON.</span></h2>
+            <p>One platform. One mission.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Zenith Space</p>
+    </footer>
+</body>
+</html>
